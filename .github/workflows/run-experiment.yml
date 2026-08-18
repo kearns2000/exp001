@@ -68,9 +68,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.111
-          cache: true
-          cache-dependency-path: |
-            **/packages.lock.json
 
       - name: Validate required provider secrets
         shell: bash

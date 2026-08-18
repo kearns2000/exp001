@@ -1,0 +1,16 @@
+EMSE Security Experiment - v2 CodeQL Fix
+=========================================
+
+This revision fixes the pilot issue where CodeQL returned Indeterminate for every candidate it analyzed.
+
+Changes:
+- CodeQL manual C# database creation now forces a real rebuild:
+    dotnet build -c Release /t:Rebuild /p:UseSharedCompilation=false
+  This prevents an earlier successful build from leaving CodeQL with no compiler process to trace.
+- GitHub workflow now restores then builds with --no-restore.
+- Removed setup-dotnet NuGet package caching because these benchmark projects have no external packages and the cache post-step produced a misleading missing-folder error.
+
+Recommended action:
+1. Replace the repository contents with this version (preserve your GitHub secret OPENAI_API_KEY).
+2. Run the pilot again.
+3. Confirm CodeQL produces Pass/Reject rather than systematic Indeterminate before running the full 120-candidate study.

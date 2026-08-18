@@ -1,27 +1,9 @@
-# Build output
-bin/
-obj/
-[Dd]ebug/
-[Rr]elease/
-artifacts/
-*.user
-*.suo
-
-# IDE
-.vs/
-.idea/
-.vscode/
-
-# macOS
-.DS_Store
-
-# Experiment configuration copied from config/*.example.json;
-# may reference provider credentials, so it is never committed.
+**/bin/
+**/obj/
+results/*/candidates/*/workspace/
+results/*/candidates/*/codeql-db/
 config/experiment.json
-config/experiment.pilot.json
-
-# Experiment output
-results/
-runs/
-out/
-*.log
+.env
+config/experiment.github.json
+run-metadata/
+.DS_Store

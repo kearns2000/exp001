@@ -238,7 +238,7 @@ public sealed class ExperimentRunnerService(string repositoryRoot, ExperimentCon
         var sarif = Path.Combine(candidateDir, "codeql.sarif");
         try
         {
-            var create = await ProcessUtil.RunAsync(config.CodeQlExecutable, $"database create \"{database}\" --language=csharp --source-root=\"{workspace}\" --command=\"dotnet build -c Release\" --overwrite", workspace, _timeout, stopToken);
+            var create = await ProcessUtil.RunAsync(config.CodeQlExecutable, $"database create \"{database}\" --language=csharp --source-root=\"{workspace}\" --command=\"dotnet build -c Release /t:Rebuild /p:UseSharedCompilation=false\" --overwrite", workspace, _timeout, stopToken);
             if (create.ExitCode != 0) return new("codeql", GateOutcome.Indeterminate, create.DurationMs, Trim(create.StdOut + create.StdErr));
             var analyse = await ProcessUtil.RunAsync(config.CodeQlExecutable, $"database analyze \"{database}\" \"{config.CodeQlSuite}\" --format=sarifv2.1.0 --output=\"{sarif}\"", workspace, _timeout, stopToken);
             if (analyse.ExitCode != 0) return new("codeql", GateOutcome.Indeterminate, create.DurationMs + analyse.DurationMs, Trim(analyse.StdOut + analyse.StdErr));
