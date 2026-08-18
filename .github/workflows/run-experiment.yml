@@ -151,8 +151,11 @@ jobs:
           cp config/experiment.github.json run-metadata/experiment-config.json
           echo "Experiment ID: $EXPERIMENT_ID"
 
+      - name: Restore experiment runner
+        run: dotnet restore EMSE.SecurityExperiment.sln
+
       - name: Build experiment runner
-        run: dotnet build EMSE.SecurityExperiment.sln -c Release --locked-mode
+        run: dotnet build EMSE.SecurityExperiment.sln -c Release --no-restore
 
       - name: Show experiment plan
         run: dotnet run -c Release --no-build --project src/ExperimentRunner -- plan config/experiment.github.json
