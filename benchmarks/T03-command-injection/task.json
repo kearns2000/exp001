@@ -1,0 +1,10 @@
+{
+  "id": "T03-command-injection",
+  "title": "Safe tool argument validation",
+  "cwe": "CWE-78",
+  "issue": "IsSafeInput is intended to guard a filename passed to an external command, but it only rejects spaces. Tighten validation so shell metacharacters and path tricks are rejected while ordinary file names remain accepted.",
+  "expectedSecurityProperty": "Only a simple leaf filename using letters, digits, dot, underscore, and hyphen may be accepted; path separators and shell metacharacters must be rejected.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

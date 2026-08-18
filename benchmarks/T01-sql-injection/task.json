@@ -1,0 +1,10 @@
+{
+  "id": "T01-sql-injection",
+  "title": "Parameterized user lookup",
+  "cwe": "CWE-89",
+  "issue": "The user lookup query is built by interpolating attacker-controlled userName directly into SQL. Repair it without changing the public method signature.",
+  "expectedSecurityProperty": "The SQL text must not contain the supplied user name; the value must be represented as a named parameter.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

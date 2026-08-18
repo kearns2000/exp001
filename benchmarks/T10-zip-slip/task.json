@@ -1,0 +1,10 @@
+{
+  "id": "T10-zip-slip",
+  "title": "Archive extraction path confinement",
+  "cwe": "CWE-22",
+  "issue": "ResolveEntryPath can resolve a malicious archive entry outside the extraction root. Reject archive entries whose canonical destination escapes the root.",
+  "expectedSecurityProperty": "Every accepted archive entry path must canonicalise beneath the extraction root; traversal and rooted paths must throw ArgumentException.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

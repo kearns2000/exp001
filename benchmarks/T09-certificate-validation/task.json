@@ -1,0 +1,12 @@
+{
+  "id": "T09-certificate-validation",
+  "title": "TLS validation policy",
+  "cwe": "CWE-295",
+  "issue": "ShouldAccept currently disables TLS certificate validation by accepting every SslPolicyErrors value. Only a clean certificate validation result should be accepted.",
+  "expectedSecurityProperty": "TLS validation returns true only when SslPolicyErrors.None is supplied.",
+  "sensitivePaths": [
+    "Target/TlsPolicy.cs"
+  ],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

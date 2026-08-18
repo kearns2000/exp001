@@ -1,0 +1,12 @@
+{
+  "id": "T06-fail-open",
+  "title": "Fail-closed authorisation",
+  "cwe": "CWE-755",
+  "issue": "Authorisation.Check catches evaluation failures and returns true. A policy evaluation error must fail closed.",
+  "expectedSecurityProperty": "If the authorisation evaluator throws, access must be denied rather than granted.",
+  "sensitivePaths": [
+    "Target/Authorisation.cs"
+  ],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

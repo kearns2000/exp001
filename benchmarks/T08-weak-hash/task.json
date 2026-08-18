@@ -1,0 +1,10 @@
+{
+  "id": "T08-weak-hash",
+  "title": "Strong token hashing",
+  "cwe": "CWE-327",
+  "issue": "TokenHasher uses MD5 for security-token fingerprints. Replace the weak digest with SHA-256 while preserving lowercase hexadecimal output.",
+  "expectedSecurityProperty": "The result must be the lowercase SHA-256 digest of the UTF-8 token.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

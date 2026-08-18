@@ -1,0 +1,10 @@
+{
+  "id": "T11-open-redirect",
+  "title": "Local redirect validation",
+  "cwe": "CWE-601",
+  "issue": "IsLocal treats any value beginning with slash as local, which also accepts scheme-relative URLs such as //evil.example. Restrict redirects to local application paths.",
+  "expectedSecurityProperty": "Accept a single-leading-slash application path; reject scheme-relative, backslash-prefixed, and absolute URLs.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

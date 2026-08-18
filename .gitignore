@@ -1,0 +1,27 @@
+# Build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+*.user
+*.suo
+
+# IDE
+.vs/
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Experiment configuration copied from config/*.example.json;
+# may reference provider credentials, so it is never committed.
+config/experiment.json
+config/experiment.pilot.json
+
+# Experiment output
+results/
+runs/
+out/
+*.log

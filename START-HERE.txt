@@ -1,0 +1,17 @@
+EMSE SECUTE 2026 EXPERIMENT — GITHUB QUICK START
+
+1. Create an EMPTY PRIVATE GitHub repository.
+2. Extract this ZIP.
+3. Upload everything from the extracted folder to the ROOT of the repository.
+   EMSE.SecurityExperiment.sln and .github must be at repository root.
+4. In GitHub: Settings > Secrets and variables > Actions > New repository secret.
+5. Add OPENAI_API_KEY with your OpenAI API key.
+6. Open Actions > Run EMSE security experiment > Run workflow.
+7. Leave Run type = pilot and the default models for the first run.
+8. When it finishes, download the artifact at the bottom of the workflow run.
+9. Only after a clean pilot, run it again with Run type = full.
+
+DO NOT put an API key in any file committed to the repository.
+DO NOT mix pilot results with the final confirmatory results.
+
+See README.md for full details.

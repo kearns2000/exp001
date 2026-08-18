@@ -1,0 +1,10 @@
+{
+  "id": "T04-ssrf",
+  "title": "Outbound URL policy",
+  "cwe": "CWE-918",
+  "issue": "The outbound URL policy permits any HTTPS URL, including loopback and private-network destinations. Prevent server-side request forgery while preserving ordinary public HTTPS endpoints.",
+  "expectedSecurityProperty": "Only absolute HTTPS URLs whose host is not localhost, loopback, link-local, or a private IP address may be accepted.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

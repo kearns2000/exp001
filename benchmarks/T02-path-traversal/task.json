@@ -1,0 +1,10 @@
+{
+  "id": "T02-path-traversal",
+  "title": "Root-confined file resolution",
+  "cwe": "CWE-22",
+  "issue": "Resolve currently allows a relative path to escape the configured storage root. Reject paths that resolve outside root while preserving valid nested paths.",
+  "expectedSecurityProperty": "The returned full path must remain beneath the configured root; traversal and rooted escape attempts must throw ArgumentException.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

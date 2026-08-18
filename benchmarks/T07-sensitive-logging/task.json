@@ -1,0 +1,10 @@
+{
+  "id": "T07-sensitive-logging",
+  "title": "Credential-safe audit message",
+  "cwe": "CWE-532",
+  "issue": "FormatLoginAudit includes the plaintext password in the audit message. Remove sensitive credential material while retaining useful user identity context.",
+  "expectedSecurityProperty": "The audit message may identify the user but must not contain the supplied password or label it as a password.",
+  "sensitivePaths": [],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

@@ -1,0 +1,12 @@
+{
+  "id": "T12-role-authorisation",
+  "title": "Least-privilege delete role",
+  "cwe": "CWE-862",
+  "issue": "CanDelete currently allows every role except Guest. The delete operation is privileged and must only be available to the Admin role.",
+  "expectedSecurityProperty": "Only the exact Admin role may delete; all other roles must be denied.",
+  "sensitivePaths": [
+    "Target/RolePolicy.cs"
+  ],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

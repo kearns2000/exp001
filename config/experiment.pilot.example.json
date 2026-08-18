@@ -1,0 +1,30 @@
+{
+  "experimentId": "emse-study2-pilot-001",
+  "maxParallelism": 1,
+  "timeoutMinutes": 10,
+  "benchmarkRoot": "benchmarks",
+  "resultsRoot": "results",
+  "runCodeQl": true,
+  "codeQlExecutable": "codeql",
+  "codeQlSuite": "codeql/csharp-queries:codeql-suites/csharp-security-extended.qls",
+  "models": [
+    {
+      "id": "openai-slot",
+      "provider": "openai",
+      "model": "REPLACE_WITH_PINNED_MODEL_ID",
+      "repetitions": 1,
+      "apiKeyEnvironmentVariable": "OPENAI_API_KEY",
+      "temperature": 0.2,
+      "maxOutputTokens": 6000
+    },
+    {
+      "id": "anthropic-slot",
+      "provider": "anthropic",
+      "model": "REPLACE_WITH_PINNED_MODEL_ID",
+      "repetitions": 1,
+      "apiKeyEnvironmentVariable": "ANTHROPIC_API_KEY",
+      "temperature": 0.2,
+      "maxOutputTokens": 6000
+    }
+  ]
+}

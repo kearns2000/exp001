@@ -1,0 +1,12 @@
+{
+  "id": "T05-tenant-isolation",
+  "title": "Tenant-scoped record query",
+  "cwe": "CWE-639",
+  "issue": "GetVisible returns active records from every tenant. Enforce tenant isolation using the tenantId argument without changing the public API.",
+  "expectedSecurityProperty": "A caller may only receive active records whose TenantId exactly matches the requested tenant.",
+  "sensitivePaths": [
+    "Target/RecordQuery.cs"
+  ],
+  "maxChangedFiles": 5,
+  "maxAddedLines": 120
+}

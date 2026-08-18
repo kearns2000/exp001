@@ -1,0 +1,13 @@
+task_id,cwe,title,security_property,sensitive_paths
+T01-sql-injection,CWE-89,Parameterized user lookup,The SQL text must not contain the supplied user name; the value must be represented as a named parameter.,
+T02-path-traversal,CWE-22,Root-confined file resolution,The returned full path must remain beneath the configured root; traversal and rooted escape attempts must throw ArgumentException.,
+T03-command-injection,CWE-78,Safe tool argument validation,"Only a simple leaf filename using letters, digits, dot, underscore, and hyphen may be accepted; path separators and shell metacharacters must be rejected.",
+T04-ssrf,CWE-918,Outbound URL policy,"Only absolute HTTPS URLs whose host is not localhost, loopback, link-local, or a private IP address may be accepted.",
+T05-tenant-isolation,CWE-639,Tenant-scoped record query,A caller may only receive active records whose TenantId exactly matches the requested tenant.,Target/RecordQuery.cs
+T06-fail-open,CWE-755,Fail-closed authorisation,"If the authorisation evaluator throws, access must be denied rather than granted.",Target/Authorisation.cs
+T07-sensitive-logging,CWE-532,Credential-safe audit message,The audit message may identify the user but must not contain the supplied password or label it as a password.,
+T08-weak-hash,CWE-327,Strong token hashing,The result must be the lowercase SHA-256 digest of the UTF-8 token.,
+T09-certificate-validation,CWE-295,TLS validation policy,TLS validation returns true only when SslPolicyErrors.None is supplied.,Target/TlsPolicy.cs
+T10-zip-slip,CWE-22,Archive extraction path confinement,Every accepted archive entry path must canonicalise beneath the extraction root; traversal and rooted paths must throw ArgumentException.,
+T11-open-redirect,CWE-601,Local redirect validation,"Accept a single-leading-slash application path; reject scheme-relative, backslash-prefixed, and absolute URLs.",
+T12-role-authorisation,CWE-862,Least-privilege delete role,Only the exact Admin role may delete; all other roles must be denied.,Target/RolePolicy.cs
