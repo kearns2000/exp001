@@ -174,3 +174,7 @@ independent hidden oracles as before.
 For manuscript analysis, use `verification-only-summary.csv` and the v3
 `leave-one-gate-out.csv` to assess gate performance conditional on an edit being
 successfully applied. Report edit-application rate separately.
+
+## v3.1 reporting semantics
+
+The v3.1 aggregation layer reports **Reject** and **Escalate** separately. Rejection is used for defect-detection sensitivity/specificity; escalation is reported as a separate review/governance rate. This is a reporting-only change and does not modify candidate generation, gates, benchmark tasks, or hidden oracles. See `UPDATE-V3.1.txt`.

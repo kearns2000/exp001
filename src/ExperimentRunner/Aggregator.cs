@@ -49,31 +49,33 @@ public static class Aggregator
 
     private static string CandidateCsv(IEnumerable<CandidateResult> results)
     {
-        var sb = new StringBuilder("candidate_id,task_id,cwe,model_id,provider,model,repetition,provider_request_id,edit_plan_produced,edit_applied,automatic_decision,functional_correctness,security_correctness,joint_correctness,automatic_flagged,first_flagged_gate,generation_ms,input_tokens,output_tokens,changed_files,added_lines,deleted_lines\n");
+        var sb = new StringBuilder("candidate_id,task_id,cwe,model_id,provider,model,repetition,provider_request_id,edit_plan_produced,edit_applied,automatic_decision,functional_correctness,security_correctness,joint_correctness,automatic_rejected,automatic_escalated,first_rejecting_gate,first_escalating_gate,generation_ms,input_tokens,output_tokens,changed_files,added_lines,deleted_lines\n");
         foreach (var r in results)
         {
-            var firstFlagged = AutomaticGates(r).FirstOrDefault(g => IsFlag(g.Outcome))?.Gate ?? "";
-            sb.AppendLine(Join(Csv(r.CandidateId), Csv(r.TaskId), Csv(r.Cwe), Csv(r.ModelId), Csv(r.Provider), Csv(r.Model), r.Repetition, Csv(r.ProviderRequestId), r.PatchProduced, r.PatchApplied, r.AutomaticDecision, r.FunctionalCorrectness, r.SecurityCorrectness, r.JointCorrectness, IsFlag(r.AutomaticDecision), Csv(firstFlagged), r.GenerationDurationMs, r.InputTokens, r.OutputTokens, r.ChangedFiles, r.AddedLines, r.DeletedLines));
+            var firstRejecting = AutomaticGates(r).FirstOrDefault(g => g.Outcome == GateOutcome.Reject)?.Gate ?? "";
+            var firstEscalating = AutomaticGates(r).FirstOrDefault(g => g.Outcome == GateOutcome.Escalate)?.Gate ?? "";
+            sb.AppendLine(Join(Csv(r.CandidateId), Csv(r.TaskId), Csv(r.Cwe), Csv(r.ModelId), Csv(r.Provider), Csv(r.Model), r.Repetition, Csv(r.ProviderRequestId), r.PatchProduced, r.PatchApplied, r.AutomaticDecision, r.FunctionalCorrectness, r.SecurityCorrectness, r.JointCorrectness, IsRejected(r.AutomaticDecision), IsEscalated(r.AutomaticDecision), Csv(firstRejecting), Csv(firstEscalating), r.GenerationDurationMs, r.InputTokens, r.OutputTokens, r.ChangedFiles, r.AddedLines, r.DeletedLines));
         }
         return sb.ToString();
     }
 
     private static string ModelSummaryCsv(IEnumerable<CandidateResult> results)
     {
-        var sb = new StringBuilder("model_id,n,edit_apply_rate,applied_n,functional_rate,security_rate,joint_correctness_rate,applied_joint_correctness_rate,automatic_flag_rate,false_negative_count,applied_false_negative_count,median_generation_ms\n");
+        var sb = new StringBuilder("model_id,n,edit_apply_rate,applied_n,functional_rate,security_rate,joint_correctness_rate,applied_joint_correctness_rate,reject_rate,escalation_rate,false_negative_count,applied_false_negative_count,median_generation_ms\n");
         foreach (var g in results.GroupBy(r => r.ModelId).OrderBy(g => g.Key))
         {
             var a = g.ToList();
             var applied = a.Where(r => r.PatchApplied).ToList();
-            var fn = a.Count(r => !r.JointCorrectness && !IsFlag(r.AutomaticDecision));
-            var appliedFn = applied.Count(r => !r.JointCorrectness && !IsVerificationFlag(r));
+            var fn = a.Count(r => !r.JointCorrectness && !IsRejected(r.AutomaticDecision));
+            var appliedFn = applied.Count(r => !r.JointCorrectness && !IsVerificationRejected(r));
             sb.AppendLine(Join(Csv(g.Key), a.Count,
                 Rate(applied.Count, a.Count), applied.Count,
                 Rate(a.Count(r => r.FunctionalCorrectness), a.Count),
                 Rate(a.Count(r => r.SecurityCorrectness), a.Count),
                 Rate(a.Count(r => r.JointCorrectness), a.Count),
                 Rate(applied.Count(r => r.JointCorrectness), applied.Count),
-                Rate(a.Count(r => IsFlag(r.AutomaticDecision)), a.Count), fn, appliedFn,
+                Rate(a.Count(r => IsRejected(r.AutomaticDecision)), a.Count),
+                Rate(a.Count(r => IsEscalated(r.AutomaticDecision)), a.Count), fn, appliedFn,
                 Median(a.Select(r => r.GenerationDurationMs))));
         }
         return sb.ToString();
@@ -81,14 +83,15 @@ public static class Aggregator
 
     private static string TaskSummaryCsv(IEnumerable<CandidateResult> results)
     {
-        var sb = new StringBuilder("task_id,cwe,n,edit_applied,applied_joint_correct,applied_defective,verification_flagged,applied_false_negatives\n");
+        var sb = new StringBuilder("task_id,cwe,n,edit_applied,applied_joint_correct,applied_defective,verification_rejected,verification_escalated,applied_false_negatives\n");
         foreach (var g in results.GroupBy(r => new { r.TaskId, r.Cwe }).OrderBy(g => g.Key.TaskId))
         {
             var a = g.ToList();
             var applied = a.Where(r => r.PatchApplied).ToList();
             sb.AppendLine(Join(Csv(g.Key.TaskId), Csv(g.Key.Cwe), a.Count, applied.Count,
                 applied.Count(r => r.JointCorrectness), applied.Count(r => !r.JointCorrectness),
-                applied.Count(IsVerificationFlag), applied.Count(r => !r.JointCorrectness && !IsVerificationFlag(r))));
+                applied.Count(IsVerificationRejected), applied.Count(IsVerificationEscalated),
+                applied.Count(r => !r.JointCorrectness && !IsVerificationRejected(r))));
         }
         return sb.ToString();
     }
@@ -107,12 +110,14 @@ public static class Aggregator
     private static string DetectionSummaryCsv(IEnumerable<CandidateResult> results)
     {
         var a = results.ToList();
-        var tp = a.Count(r => !r.JointCorrectness && IsFlag(r.AutomaticDecision));
-        var fn = a.Count(r => !r.JointCorrectness && !IsFlag(r.AutomaticDecision));
-        var fp = a.Count(r => r.JointCorrectness && IsFlag(r.AutomaticDecision));
-        var tn = a.Count(r => r.JointCorrectness && !IsFlag(r.AutomaticDecision));
-        var sb = new StringBuilder("n,tp,fn,fp,tn,sensitivity,specificity,ppv,npv\n");
-        sb.AppendLine(Join(a.Count, tp, fn, fp, tn, Ratio(tp, tp + fn), Ratio(tn, tn + fp), Ratio(tp, tp + fp), Ratio(tn, tn + fn)));
+        var tp = a.Count(r => !r.JointCorrectness && IsRejected(r.AutomaticDecision));
+        var fn = a.Count(r => !r.JointCorrectness && !IsRejected(r.AutomaticDecision));
+        var fp = a.Count(r => r.JointCorrectness && IsRejected(r.AutomaticDecision));
+        var tn = a.Count(r => r.JointCorrectness && !IsRejected(r.AutomaticDecision));
+        var escalated = a.Count(r => IsEscalated(r.AutomaticDecision));
+        var sb = new StringBuilder("n,tp,fn,fp,tn,rejected,escalated,sensitivity,specificity,ppv,npv,escalation_rate\n");
+        sb.AppendLine(Join(a.Count, tp, fn, fp, tn, a.Count(r => IsRejected(r.AutomaticDecision)), escalated,
+            Ratio(tp, tp + fn), Ratio(tn, tn + fp), Ratio(tp, tp + fp), Ratio(tn, tn + fn), Ratio(escalated, a.Count)));
         return sb.ToString();
     }
 
@@ -122,22 +127,29 @@ public static class Aggregator
         var a = results.Where(r => r.PatchApplied).ToList();
         var defective = a.Where(r => !r.JointCorrectness).ToList();
         var correct = a.Where(r => r.JointCorrectness).ToList();
-        var tp = defective.Count(IsVerificationFlag);
+        var tp = defective.Count(IsVerificationRejected);
         var fn = defective.Count - tp;
-        var fp = correct.Count(IsVerificationFlag);
+        var fp = correct.Count(IsVerificationRejected);
         var tn = correct.Count - fp;
-        var sb = new StringBuilder("applied_n,defective_applied,correct_applied,tp,fn,fp,tn,sensitivity,specificity,ppv,npv\n");
+        var escalated = a.Count(IsVerificationEscalated);
+        var correctEscalated = correct.Count(IsVerificationEscalated);
+        var defectiveEscalated = defective.Count(IsVerificationEscalated);
+        var sb = new StringBuilder("applied_n,defective_applied,correct_applied,tp,fn,fp,tn,rejected,escalated,correct_escalated,defective_escalated,sensitivity,specificity,ppv,npv,escalation_rate\n");
         sb.AppendLine(Join(a.Count, defective.Count, correct.Count, tp, fn, fp, tn,
-            Ratio(tp, tp + fn), Ratio(tn, tn + fp), Ratio(tp, tp + fp), Ratio(tn, tn + fn)));
+            a.Count(IsVerificationRejected), escalated, correctEscalated, defectiveEscalated,
+            Ratio(tp, tp + fn), Ratio(tn, tn + fp), Ratio(tp, tp + fp), Ratio(tn, tn + fn), Ratio(escalated, a.Count)));
         return sb.ToString();
     }
 
     private static string FirstFlaggedGateCsv(IEnumerable<CandidateResult> results)
     {
-        var counts = results.Select(r => AutomaticGates(r).FirstOrDefault(g => IsFlag(g.Outcome))?.Gate ?? "none")
+        var rejects = results.Select(r => AutomaticGates(r).FirstOrDefault(g => g.Outcome == GateOutcome.Reject)?.Gate ?? "none")
             .GroupBy(x => x).OrderByDescending(g => g.Count()).ThenBy(g => g.Key);
-        var sb = new StringBuilder("gate,count\n");
-        foreach (var g in counts) sb.AppendLine($"{Csv(g.Key)},{g.Count()}");
+        var escalations = results.Select(r => AutomaticGates(r).FirstOrDefault(g => g.Outcome == GateOutcome.Escalate)?.Gate ?? "none")
+            .GroupBy(x => x).OrderByDescending(g => g.Count()).ThenBy(g => g.Key);
+        var sb = new StringBuilder("outcome,gate,count\n");
+        foreach (var g in rejects) sb.AppendLine($"reject,{Csv(g.Key)},{g.Count()}");
+        foreach (var g in escalations) sb.AppendLine($"escalate,{Csv(g.Key)},{g.Count()}");
         return sb.ToString();
     }
 
@@ -145,15 +157,18 @@ public static class Aggregator
     {
         var list = results.Where(r => r.PatchApplied).ToList();
         var gates = list.SelectMany(VerificationGates).Select(g => g.Gate).Distinct().OrderBy(x => x).ToList();
-        var sb = new StringBuilder("removed_gate,defective_flagged,total_defective,sensitivity,correct_flagged,total_correct,specificity\n");
+        var sb = new StringBuilder("removed_gate,defective_rejected,total_defective,sensitivity,correct_rejected,total_correct,specificity,escalated,total_applied,escalation_rate\n");
         foreach (var removed in gates)
         {
             var defective = list.Where(r => !r.JointCorrectness).ToList();
             var correct = list.Where(r => r.JointCorrectness).ToList();
-            bool FlagWithout(CandidateResult r) => VerificationGates(r).Where(g => g.Gate != removed).Any(g => IsFlag(g.Outcome));
-            var defectFlag = defective.Count(FlagWithout);
-            var correctFlag = correct.Count(FlagWithout);
-            sb.AppendLine(Join(Csv(removed), defectFlag, defective.Count, Ratio(defectFlag, defective.Count), correctFlag, correct.Count, Ratio(correct.Count - correctFlag, correct.Count)));
+            bool RejectWithout(CandidateResult r) => VerificationGates(r).Where(g => g.Gate != removed).Any(g => g.Outcome == GateOutcome.Reject);
+            bool EscalateWithout(CandidateResult r) => VerificationGates(r).Where(g => g.Gate != removed).Any(g => g.Outcome == GateOutcome.Escalate);
+            var defectReject = defective.Count(RejectWithout);
+            var correctReject = correct.Count(RejectWithout);
+            var escalated = list.Count(EscalateWithout);
+            sb.AppendLine(Join(Csv(removed), defectReject, defective.Count, Ratio(defectReject, defective.Count), correctReject, correct.Count,
+                Ratio(correct.Count - correctReject, correct.Count), escalated, list.Count, Ratio(escalated, list.Count)));
         }
         return sb.ToString();
     }
@@ -162,12 +177,12 @@ public static class Aggregator
     {
         var list = results.ToList();
         if (list.Count == 0) return "Study 2 has not been run yet.\n";
-        var sb = new StringBuilder("| Model | Candidates | Edits applied | Applied jointly correct | Applied defective | Verification flagged | Applied false negatives |\n|---|---:|---:|---:|---:|---:|---:|\n");
+        var sb = new StringBuilder("| Model | Candidates | Edits applied | Applied jointly correct | Applied defective | Verification rejected | Verification escalated | Applied false negatives |\n|---|---:|---:|---:|---:|---:|---:|---:|\n");
         foreach (var g in list.GroupBy(r => r.ModelId).OrderBy(g => g.Key))
         {
             var all = g.ToList();
             var applied = all.Where(r => r.PatchApplied).ToList();
-            sb.AppendLine($"| {g.Key} | {all.Count} | {applied.Count} ({Rate(applied.Count, all.Count)}) | {applied.Count(r => r.JointCorrectness)} ({Rate(applied.Count(r => r.JointCorrectness), applied.Count)}) | {applied.Count(r => !r.JointCorrectness)} | {applied.Count(IsVerificationFlag)} | {applied.Count(r => !r.JointCorrectness && !IsVerificationFlag(r))} |");
+            sb.AppendLine($"| {g.Key} | {all.Count} | {applied.Count} ({Rate(applied.Count, all.Count)}) | {applied.Count(r => r.JointCorrectness)} ({Rate(applied.Count(r => r.JointCorrectness), applied.Count)}) | {applied.Count(r => !r.JointCorrectness)} | {applied.Count(IsVerificationRejected)} | {applied.Count(IsVerificationEscalated)} | {applied.Count(r => !r.JointCorrectness && !IsVerificationRejected(r))} |");
         }
         return sb.ToString();
     }
@@ -175,8 +190,10 @@ public static class Aggregator
     private static IEnumerable<GateResult> AutomaticGates(CandidateResult r) => r.Gates.Where(g => !OracleGates.Contains(g.Gate));
     private static IEnumerable<GateResult> VerificationGates(CandidateResult r) =>
         AutomaticGates(r).Where(g => g.Gate is not "edit-application" and not "patch");
-    private static bool IsVerificationFlag(CandidateResult r) => VerificationGates(r).Any(g => IsFlag(g.Outcome));
-    private static bool IsFlag(GateOutcome outcome) => outcome is GateOutcome.Reject or GateOutcome.Escalate;
+    private static bool IsVerificationRejected(CandidateResult r) => VerificationGates(r).Any(g => g.Outcome == GateOutcome.Reject);
+    private static bool IsVerificationEscalated(CandidateResult r) => VerificationGates(r).Any(g => g.Outcome == GateOutcome.Escalate);
+    private static bool IsRejected(GateOutcome outcome) => outcome == GateOutcome.Reject;
+    private static bool IsEscalated(GateOutcome outcome) => outcome == GateOutcome.Escalate;
 
     private static string Join(params object?[] values) =>
         string.Join(",", values.Select(v => Convert.ToString(v, CultureInfo.InvariantCulture) ?? ""));

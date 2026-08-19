@@ -1,0 +1,26 @@
+EMSE Study 2 v3.1 — reporting-only correction
+
+This update does NOT change:
+- benchmark tasks
+- model prompts or replacement-file generation
+- providers or model configuration
+- policy thresholds
+- build/test/NuGet/CodeQL gates
+- security proof tests
+- functional or hold-out security oracles
+
+It changes only aggregation/reporting semantics so that Reject and Escalate are not collapsed into one "flagged" class.
+
+Primary defect-detection metrics now treat only Reject as an automatic defect detection.
+Escalate is reported separately as a governance/review-required outcome.
+
+Key output changes:
+- candidate-results.csv: automatic_rejected and automatic_escalated are separate fields
+- verification-only-summary.csv: rejection-based sensitivity/specificity plus escalation counts/rate
+- model-summary.csv: separate reject_rate and escalation_rate
+- task-summary.csv: separate verification_rejected and verification_escalated
+- first-flagged-gate.csv: separate reject/escalate rows
+- leave-one-gate-out.csv: defect sensitivity is based only on Reject; escalation rate is separate
+- paper-table-study2.md: separate Verification rejected and Verification escalated columns
+
+This is a reporting-only patch intended to preserve the frozen experimental design after the successful v3 pilot.
