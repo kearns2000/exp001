@@ -1,17 +1,40 @@
-EMSE SECUTE 2026 EXPERIMENT — GITHUB QUICK START
+EMSE STUDY 2 V3 — GITHUB QUICK START
+=====================================
 
-1. Create an EMPTY PRIVATE GitHub repository.
-2. Extract this ZIP.
-3. Upload everything from the extracted folder to the ROOT of the repository.
-   EMSE.SecurityExperiment.sln and .github must be at repository root.
-4. In GitHub: Settings > Secrets and variables > Actions > New repository secret.
-5. Add OPENAI_API_KEY with your OpenAI API key.
-6. Open Actions > Run EMSE security experiment > Run workflow.
-7. Leave Run type = pilot and the default models for the first run.
-8. When it finishes, download the artifact at the bottom of the workflow run.
-9. Only after a clean pilot, run it again with Run type = full.
+This is the replacement-edit version intended to remove unified-diff formatting
+as a confounder.
 
-DO NOT put an API key in any file committed to the repository.
-DO NOT mix pilot results with the final confirmatory results.
+1. Replace the contents of your existing private GitHub repository with this
+   version. Make sure .github/workflows/run-experiment.yml is included.
 
-See README.md for full details.
+2. Keep your existing repository secret:
+      OPENAI_API_KEY
+
+3. In GitHub open:
+      Actions -> Run EMSE Study 2 v3 (replacement edits) -> Run workflow
+
+4. FIRST RUN:
+      Run type: pilot
+      Provider A: openai
+      Model A: gpt-5.6-sol
+      Provider B: openai
+      Model B: gpt-5.6-terra
+
+   This runs 24 candidates (12 tasks x 2 models x 1 repetition).
+
+5. Download the artifact and inspect at minimum:
+      candidate-results.csv
+      gate-summary.csv
+      model-summary.csv
+      verification-only-summary.csv
+      task-summary.csv
+
+6. Only after the v3 pilot is clean, run:
+      Run type: full
+
+   The full run is 120 candidates (12 x 2 x 5).
+
+IMPORTANT
+---------
+Do not mix the v2 unified-diff results with the v3 replacement-edit results.
+They are separate experimental conditions.

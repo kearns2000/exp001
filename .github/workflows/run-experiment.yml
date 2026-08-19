@@ -1,10 +1,10 @@
-name: Run EMSE security experiment
+name: Run EMSE Study 2 v3 (replacement edits)
 
 on:
   workflow_dispatch:
     inputs:
       run_type:
-        description: "Pilot = 24 candidates; Full = 120 candidates"
+        description: "V3 replacement-edit study. Pilot = 24 candidates; Full = 120 candidates"
         required: true
         default: pilot
         type: choice

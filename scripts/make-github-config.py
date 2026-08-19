@@ -14,7 +14,7 @@ parallelism = 1 if mode == "pilot" else 2
 run_id = os.environ.get("GITHUB_RUN_ID", "local")
 attempt = os.environ.get("GITHUB_RUN_ATTEMPT", "1")
 sha = os.environ.get("GITHUB_SHA", "unknown")[:12]
-experiment_id = f"emse-study2-{mode}-gh{run_id}-a{attempt}-{sha}"
+experiment_id = f"emse-study2-v3-replacements-{mode}-gh{run_id}-a{attempt}-{sha}"
 
 def model(slot, provider, model):
     return {

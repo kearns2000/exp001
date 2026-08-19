@@ -86,23 +86,41 @@ public sealed class ExperimentRunnerService(string repositoryRoot, ExperimentCon
         var generation = await provider.GenerateAsync(model, prompt, stopToken);
         await File.WriteAllTextAsync(Path.Combine(candidateDir, "raw-model-output.txt"), generation.Text, stopToken);
         await File.WriteAllTextAsync(Path.Combine(candidateDir, "raw-provider-response.txt"), generation.RawResponse, stopToken);
-        var patch = PatchUtil.ExtractUnifiedDiff(generation.Text);
-        var patchPath = Path.Combine(candidateDir, "candidate.diff");
-        await File.WriteAllTextAsync(patchPath, patch, stopToken);
-        var counts = PatchUtil.CountDiff(patch);
+        // Study 2 v3 deliberately avoids unified-diff generation. The model returns complete
+        // replacement contents for existing files. This removes diff-hunk formatting as a
+        // confounder while retaining a deterministic, auditable edit artifact.
+        var plan = ReplacementUtil.ExtractPlan(generation.Text, jsonOptions);
+        var editPlanPath = Path.Combine(candidateDir, "candidate.edits.json");
+        if (plan is not null)
+            await File.WriteAllTextAsync(editPlanPath, JsonSerializer.Serialize(plan, jsonOptions), stopToken);
 
         var gates = new List<GateResult>();
-        var patchApplied = false;
-        if (string.IsNullOrWhiteSpace(patch))
+        var patchApplied = false; // Kept as the persisted compatibility field; semantically "edit applied" in v3.
+        string patch = string.Empty;
+        var counts = (Files: 0, Added: 0, Deleted: 0);
+
+        if (plan is null)
         {
-            gates.Add(new("patch", GateOutcome.Reject, 0, "No unified diff was produced."));
+            gates.Add(new("edit-application", GateOutcome.Reject, 0, "No valid replacement-plan JSON was produced."));
         }
         else
         {
-            var apply = await ProcessUtil.RunAsync("git", $"apply --whitespace=error \"{patchPath}\"", workspace, _timeout, stopToken);
-            patchApplied = apply.ExitCode == 0;
-            gates.Add(new("patch", patchApplied ? GateOutcome.Pass : GateOutcome.Reject, apply.DurationMs, Trim(apply.StdErr + apply.StdOut), "candidate.diff"));
+            var sw = System.Diagnostics.Stopwatch.StartNew();
+            var applied = ReplacementUtil.ApplyPlan(plan, workspace);
+            if (applied.Applied)
+            {
+                var diffResult = await ProcessUtil.RunAsync("git", "diff --no-ext-diff --binary", workspace, _timeout, stopToken);
+                patch = diffResult.StdOut;
+                patchApplied = !string.IsNullOrWhiteSpace(patch);
+                if (!patchApplied) applied = (false, "Replacement plan produced no effective repository change.");
+            }
+            sw.Stop();
+            gates.Add(new("edit-application", patchApplied ? GateOutcome.Pass : GateOutcome.Reject, sw.ElapsedMilliseconds, applied.Summary, "candidate.edits.json"));
         }
+
+        var patchPath = Path.Combine(candidateDir, "candidate.diff");
+        await File.WriteAllTextAsync(patchPath, patch, stopToken);
+        counts = PatchUtil.CountDiff(patch);
 
         if (patchApplied)
         {
@@ -142,7 +160,7 @@ public sealed class ExperimentRunnerService(string repositoryRoot, ExperimentCon
             GenerationDurationMs = generation.DurationMs,
             InputTokens = generation.InputTokens,
             OutputTokens = generation.OutputTokens,
-            PatchProduced = !string.IsNullOrWhiteSpace(patch),
+            PatchProduced = plan is not null,
             PatchApplied = patchApplied,
             PatchSha256 = PatchUtil.Sha256(patch),
             PatchPath = Path.GetRelativePath(resultRoot, patchPath),
@@ -172,8 +190,11 @@ public sealed class ExperimentRunnerService(string repositoryRoot, ExperimentCon
     {
         var sb = new StringBuilder();
         sb.AppendLine("You are repairing a security defect in a .NET 10 repository.");
-        sb.AppendLine("Return ONLY a unified git diff beginning with 'diff --git'. Do not include prose or commands.");
-        sb.AppendLine("Do not weaken or delete tests. Do not add network calls, secrets, or broad suppressions.");
+        sb.AppendLine("Return ONLY one JSON object. Do not include Markdown fences, prose, commands, or a unified diff.");
+        sb.AppendLine("The JSON schema is: {\"files\":[{\"path\":\"existing/relative/path\",\"content\":\"complete replacement file contents\"}]}.");
+        sb.AppendLine("Every path must name an EXISTING repository file. Return complete file contents, not fragments.");
+        sb.AppendLine("Do not modify PublicTests, packages.lock.json, or .git content. Do not add new files.");
+        sb.AppendLine("Do not weaken tests, add network calls, secrets, or broad suppressions.");
         sb.AppendLine("Make the smallest change that fixes the issue while preserving intended behaviour.");
         sb.AppendLine();
         sb.AppendLine($"Issue: {task.Issue}");

@@ -152,3 +152,25 @@ The GitHub workflow currently pins:
 The selected provider/model IDs, Git commit SHA, GitHub run ID, .NET information, Git version and CodeQL version are written into the result artifact under `run-metadata/`.
 
 The workflow defaults to OpenAI model IDs `gpt-5.6-sol` and `gpt-5.6-terra`. The workflow form lets you replace either model or change either provider to Anthropic without editing source files. Record the exact IDs used for the confirmatory run in the manuscript.
+
+## Study 2 v3: replacement-edit generation
+
+This repository version replaces model-generated unified diffs with complete-file
+replacement plans. The change was made after the first 120-candidate run showed
+that unified-diff application failures dominated the measured rejection rate.
+
+The model must return only JSON of the form:
+
+```json
+{"files":[{"path":"Target/Example.cs","content":"complete replacement contents"}]}
+```
+
+Only existing repository files can be replaced. `PublicTests/`, `.git/`,
+`packages.lock.json`, path traversal, duplicate paths, and creation of new files
+are rejected by the edit-application stage. After application, the runner derives
+a normal `candidate.diff` with Git and runs the same verification gates and
+independent hidden oracles as before.
+
+For manuscript analysis, use `verification-only-summary.csv` and the v3
+`leave-one-gate-out.csv` to assess gate performance conditional on an edit being
+successfully applied. Report edit-application rate separately.

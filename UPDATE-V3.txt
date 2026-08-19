@@ -1,0 +1,43 @@
+EMSE STUDY 2 V3 — COMPLETE-FILE REPLACEMENT EXPERIMENT
+========================================================
+
+Why this version exists
+-----------------------
+The first 120-candidate run exposed a methodological confounder: 45 defective
+candidates were rejected only because their generated unified diffs could not be
+applied. That measured diff-format reliability rather than the verification
+stack's ability to detect insecure but viable repairs.
+
+What changed
+------------
+Only the generation/application interface changed.
+
+The model now returns a JSON replacement plan:
+
+  {"files":[{"path":"Target/Foo.cs","content":"<complete file contents>"}]}
+
+The runner:
+  1. validates that every path is an existing repository file;
+  2. blocks PublicTests, packages.lock.json, .git, path traversal and new files;
+  3. writes the complete replacement contents;
+  4. derives candidate.diff with git diff for audit/review;
+  5. runs the same policy, restore, build, public-test, NuGet, security-proof,
+     CodeQL and independent oracle stages used by v2.
+
+The hidden gate-security and oracle tests are still never shown to the model.
+
+New reporting
+-------------
+- candidate-results.csv uses edit_plan_produced and edit_applied columns.
+- verification-only-summary.csv measures the automatic verification stack only
+  among successfully applied edits.
+- leave-one-gate-out.csv now excludes the edit-application stage and analyses
+  verification gates only.
+- model-summary.csv reports both edit-application rate and conditional
+  correctness/false negatives for applied edits.
+
+Run order
+---------
+Run PILOT first. Do not run FULL until the pilot shows a high edit-application
+rate and the automatic gates/oracles complete without systematic infrastructure
+errors.
