@@ -5,7 +5,7 @@ type: software
 authors:
   - family-names: "Kearns"
     given-names: "Patrick"
-repository-code: "PLACEHOLDER_GITHUB_URL"
+repository-code: "https://github.com/kearns2000/exp001"
 license: MIT
 version: "1.0.0"
 date-released: 2026-08-20
