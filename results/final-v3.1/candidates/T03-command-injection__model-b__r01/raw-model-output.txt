@@ -1,0 +1,1 @@
+{"files":[{"path":"Target/ToolInputPolicy.cs","content":"namespace Target;\npublic static class ToolInputPolicy\n{\n    public static bool IsSafeInput(string fileName)\n        => !string.IsNullOrEmpty(fileName) && fileName.All(c => char.IsAsciiLetterOrDigit(c) || c is '.' or '_' or '-');\n}\n"}]}

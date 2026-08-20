@@ -1,0 +1,100 @@
+{
+  "experimentId": "emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb",
+  "candidateId": "T10-zip-slip__model-b__r04",
+  "taskId": "T10-zip-slip",
+  "cwe": "CWE-22",
+  "modelId": "model-b",
+  "provider": "openai",
+  "model": "gpt-5.6-terra",
+  "repetition": 4,
+  "startedAt": "2026-08-19T21:07:28.5828882+00:00",
+  "generationDurationMs": 17901,
+  "inputTokens": 999,
+  "outputTokens": 1324,
+  "patchProduced": true,
+  "patchApplied": true,
+  "patchSha256": "198401030886c7d84376fc81ea4e3485a8253def2ae7e5299394e693ec7318a9",
+  "patchPath": "candidates/T10-zip-slip__model-b__r04/candidate.diff",
+  "gates": [
+    {
+      "gate": "edit-application",
+      "outcome": "Pass",
+      "durationMs": 7,
+      "summary": "Applied 1 complete-file replacement(s).",
+      "artifactPath": "candidate.edits.json"
+    },
+    {
+      "gate": "policy",
+      "outcome": "Pass",
+      "durationMs": 5,
+      "summary": "Diff scope is within task policy.",
+      "artifactPath": null
+    },
+    {
+      "gate": "restore",
+      "outcome": "Pass",
+      "durationMs": 2833,
+      "summary": "Determining projects to restore...\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-b__r04/workspace/PublicTests/PublicTests.csproj (in 293 ms).\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-b__r04/workspace/Target/Target.csproj (in 267 ms).",
+      "artifactPath": null
+    },
+    {
+      "gate": "build",
+      "outcome": "Pass",
+      "durationMs": 2428,
+      "summary": "Target -\u003E /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-b__r04/workspace/Target/bin/Release/net10.0/Target.dll\n  PublicTests -\u003E /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-b__r04/workspace/PublicTests/bin/Release/net10.0/PublicTests.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:01.83",
+      "artifactPath": null
+    },
+    {
+      "gate": "public-tests",
+      "outcome": "Pass",
+      "durationMs": 2848,
+      "summary": "",
+      "artifactPath": null
+    },
+    {
+      "gate": "nuget-audit",
+      "outcome": "Pass",
+      "durationMs": 2394,
+      "summary": "Determining projects to restore...\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-b__r04/workspace/PublicTests/PublicTests.csproj (in 224 ms).\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-b__r04/workspace/Target/Target.csproj (in 210 ms).",
+      "artifactPath": null
+    },
+    {
+      "gate": "security-proof-tests",
+      "outcome": "Pass",
+      "durationMs": 4748,
+      "summary": "",
+      "artifactPath": null
+    },
+    {
+      "gate": "codeql",
+      "outcome": "Pass",
+      "durationMs": 121271,
+      "summary": "No CodeQL findings reported.",
+      "artifactPath": "codeql.sarif"
+    },
+    {
+      "gate": "oracle-functional",
+      "outcome": "Pass",
+      "durationMs": 4121,
+      "summary": "",
+      "artifactPath": null
+    },
+    {
+      "gate": "oracle-security",
+      "outcome": "Pass",
+      "durationMs": 4600,
+      "summary": "",
+      "artifactPath": null
+    }
+  ],
+  "automaticDecision": "Pass",
+  "functionalCorrectness": true,
+  "securityCorrectness": true,
+  "jointCorrectness": true,
+  "firstRejectingGate": "",
+  "changedFiles": 1,
+  "addedLines": 22,
+  "deletedLines": 1,
+  "providerRequestId": "resp_0319ac0be7e02197006a861b10b00c81919a73fd55b010550a",
+  "error": null
+}

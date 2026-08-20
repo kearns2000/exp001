@@ -1,0 +1,3 @@
+model_id,n,edit_apply_rate,applied_n,functional_rate,security_rate,joint_correctness_rate,applied_joint_correctness_rate,reject_rate,escalation_rate,false_negative_count,applied_false_negative_count,median_generation_ms
+"model-a",60,100.0 %,60,98.3 %,90.0 %,90.0 %,90.0 %,1.7 %,33.3 %,5,5,3293
+"model-b",60,100.0 %,60,100.0 %,91.7 %,91.7 %,91.7 %,0.0 %,33.3 %,5,5,2093

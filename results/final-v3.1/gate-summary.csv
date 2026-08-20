@@ -1,0 +1,11 @@
+gate,observed,pass,reject,escalate,indeterminate,not_run,median_ms,p95_ms
+"build",120,119,1,0,0,0,2262,3031
+"codeql",120,119,0,0,1,0,140179,150330
+"edit-application",120,120,0,0,0,0,7,12
+"nuget-audit",120,120,0,0,0,0,2269,3015
+"oracle-functional",120,119,1,0,0,0,4121,5404
+"oracle-security",120,109,11,0,0,0,3937,5552
+"policy",120,80,0,40,0,0,5,10
+"public-tests",120,119,1,0,0,0,2576,3428
+"restore",120,120,0,0,0,0,2315,3071
+"security-proof-tests",120,119,1,0,0,0,4122,5410

@@ -1,0 +1,1 @@
+{"files":[{"path":"Target/RecordQuery.cs","content":"namespace Target;\npublic sealed record Record(string TenantId, string Id, bool Active);\npublic static class RecordQuery\n{\n    public static IReadOnlyList<Record> GetVisible(IEnumerable<Record> records, string tenantId)\n        => records.Where(x => x.Active && x.TenantId == tenantId).ToList();\n}\n"}]}

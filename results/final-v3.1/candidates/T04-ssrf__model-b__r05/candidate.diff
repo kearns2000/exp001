@@ -1,0 +1,81 @@
+diff --git a/Target/OutboundUrlPolicy.cs b/Target/OutboundUrlPolicy.cs
+index f1cb672..97a37ea 100644
+--- a/Target/OutboundUrlPolicy.cs
++++ b/Target/OutboundUrlPolicy.cs
+@@ -1,6 +1,75 @@
++using System.Net;
++
+ namespace Target;
++
+ public static class OutboundUrlPolicy
+ {
+     public static bool IsAllowed(string value)
+-        => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
++    {
++        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
++            uri.Scheme != Uri.UriSchemeHttps ||
++            string.IsNullOrWhiteSpace(uri.Host))
++        {
++            return false;
++        }
++
++        var host = uri.Host.TrimEnd('.');
++        if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase) ||
++            host.EndsWith(".localhost", StringComparison.OrdinalIgnoreCase))
++        {
++            return false;
++        }
++
++        return !IPAddress.TryParse(host, out var address) || !IsBlockedAddress(address);
++    }
++
++    private static bool IsBlockedAddress(IPAddress address)
++    {
++        if (address.IsIPv4MappedToIPv6)
++        {
++            address = address.MapToIPv4();
++        }
++
++        if (IPAddress.IsLoopback(address))
++        {
++            return true;
++        }
++
++        var bytes = address.GetAddressBytes();
++        if (bytes.Length == 4)
++        {
++            return IsBlockedIpv4(bytes, 0);
++        }
++
++        if (bytes.Length != 16)
++        {
++            return true;
++        }
++
++        if ((bytes[0] == 0xfe && (bytes[1] & 0xc0) == 0x80) ||
++            (bytes[0] == 0xfe && (bytes[1] & 0xc0) == 0xc0) ||
++            (bytes[0] & 0xfe) == 0xfc)
++        {
++            return true;
++        }
++
++        var isIpv4Compatible = true;
++        for (var index = 0; index < 12; index++)
++        {
++            if (bytes[index] != 0)
++            {
++                isIpv4Compatible = false;
++                break;
++            }
++        }
++
++        return isIpv4Compatible && IsBlockedIpv4(bytes, 12);
++    }
++
++    private static bool IsBlockedIpv4(byte[] bytes, int offset)
++        => bytes[offset] == 127 ||
++           (bytes[offset] == 169 && bytes[offset + 1] == 254) ||
++           bytes[offset] == 10 ||
++           (bytes[offset] == 172 && bytes[offset + 1] is >= 16 and <= 31) ||
++           (bytes[offset] == 192 && bytes[offset + 1] == 168);
+ }

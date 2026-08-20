@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/FileStore.cs",
+      "content": "namespace Target;\npublic static class FileStore\n{\n    public static string Resolve(string root, string relativePath)\n    {\n        if (Path.IsPathRooted(relativePath))\n        {\n            throw new ArgumentException(\u0022The path must be relative.\u0022, nameof(relativePath));\n        }\n\n        var fullRoot = Path.TrimEndingDirectorySeparator(\n            Path.GetFullPath(Path.Combine(root, \u0022.\u0022)));\n        var fullPath = Path.GetFullPath(Path.Combine(fullRoot, relativePath));\n        var rootPrefix = Path.EndsInDirectorySeparator(fullRoot)\n            ? fullRoot\n            : fullRoot \u002B Path.DirectorySeparatorChar;\n        var comparison = OperatingSystem.IsWindows()\n            ? StringComparison.OrdinalIgnoreCase\n            : StringComparison.Ordinal;\n\n        if (!fullPath.Equals(fullRoot, comparison) \u0026\u0026\n            !fullPath.StartsWith(rootPrefix, comparison))\n        {\n            throw new ArgumentException(\u0022The path resolves outside the storage root.\u0022, nameof(relativePath));\n        }\n\n        return fullPath;\n    }\n}\n"
+    }
+  ]
+}

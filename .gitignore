@@ -1,9 +1,34 @@
+# Build output
 **/bin/
 **/obj/
-results/*/candidates/*/workspace/
-results/*/candidates/*/codeql-db/
-config/experiment.json
-.env
-config/experiment.github.json
-run-metadata/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# macOS
 .DS_Store
+
+# Local run configuration. These are generated from config/*.example.json and
+# name the environment variable holding a provider key, so they are never
+# committed.
+config/experiment.json
+config/experiment.pilot.json
+config/experiment.github.json
+.env
+
+# Local experiment output. results/final-v3.1/ is the frozen published dataset
+# and is deliberately tracked; any other results/ subdirectory is a local run.
+results/*
+!results/final-v3.1/
+
+# Bulk per-candidate build state: reconstructible from candidate.edits.json and
+# far too large to publish (CodeQL databases alone are ~5 GB per full run).
+results/**/workspace/
+results/**/codeql-db/
+
+# Environment capture written at the repository root during a CI run. The
+# published copy under results/final-v3.1/run-metadata/ is deliberately tracked.
+/run-metadata/

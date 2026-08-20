@@ -1,0 +1,8 @@
+removed_gate,defective_rejected,total_defective,sensitivity,correct_rejected,total_correct,specificity,escalated,total_applied,escalation_rate
+"build",1,11,0.091,0,109,1.000,40,120,0.333
+"codeql",1,11,0.091,0,109,1.000,40,120,0.333
+"nuget-audit",1,11,0.091,0,109,1.000,40,120,0.333
+"policy",1,11,0.091,0,109,1.000,0,120,0.000
+"public-tests",1,11,0.091,0,109,1.000,40,120,0.333
+"restore",1,11,0.091,0,109,1.000,40,120,0.333
+"security-proof-tests",1,11,0.091,0,109,1.000,40,120,0.333

@@ -1,0 +1,67 @@
+diff --git a/Target/OutboundUrlPolicy.cs b/Target/OutboundUrlPolicy.cs
+index f1cb672..2880fa8 100644
+--- a/Target/OutboundUrlPolicy.cs
++++ b/Target/OutboundUrlPolicy.cs
+@@ -1,6 +1,61 @@
++using System.Net;
++
+ namespace Target;
++
+ public static class OutboundUrlPolicy
+ {
+     public static bool IsAllowed(string value)
+-        => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
++    {
++        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
++            uri.Scheme != Uri.UriSchemeHttps)
++        {
++            return false;
++        }
++
++        var host = uri.IdnHost.TrimEnd('.');
++        if (host.Length == 0 ||
++            host.Equals("localhost", StringComparison.OrdinalIgnoreCase) ||
++            host.EndsWith(".localhost", StringComparison.OrdinalIgnoreCase))
++        {
++            return false;
++        }
++
++        var addressHost = host.Trim('[', ']');
++        var scopeIndex = addressHost.IndexOf('%');
++        if (scopeIndex >= 0)
++        {
++            addressHost = addressHost[..scopeIndex];
++        }
++
++        return !IPAddress.TryParse(addressHost, out var address) || !IsBlocked(address);
++    }
++
++    private static bool IsBlocked(IPAddress address)
++    {
++        if (address.IsIPv4MappedToIPv6)
++        {
++            address = address.MapToIPv4();
++        }
++
++        if (IPAddress.IsLoopback(address) ||
++            address.Equals(IPAddress.Any) ||
++            address.Equals(IPAddress.IPv6Any))
++        {
++            return true;
++        }
++
++        var bytes = address.GetAddressBytes();
++        if (bytes.Length == 4)
++        {
++            return bytes[0] == 10 ||
++                   bytes[0] == 127 ||
++                   (bytes[0] == 169 && bytes[1] == 254) ||
++                   (bytes[0] == 172 && bytes[1] >= 16 && bytes[1] <= 31) ||
++                   (bytes[0] == 192 && bytes[1] == 168);
++        }
++
++        return (bytes[0] & 0xfe) == 0xfc ||
++               (bytes[0] == 0xfe && (bytes[1] & 0xc0) == 0x80) ||
++               (bytes[0] == 0xfe && (bytes[1] & 0xc0) == 0xc0);
++    }
+ }

@@ -1,0 +1,65 @@
+diff --git a/Target/OutboundUrlPolicy.cs b/Target/OutboundUrlPolicy.cs
+index f1cb672..fae38a6 100644
+--- a/Target/OutboundUrlPolicy.cs
++++ b/Target/OutboundUrlPolicy.cs
+@@ -1,6 +1,59 @@
++using System.Net;
++using System.Net.Sockets;
++
+ namespace Target;
++
+ public static class OutboundUrlPolicy
+ {
+     public static bool IsAllowed(string value)
+-        => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
++    {
++        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
++            uri.Scheme != Uri.UriSchemeHttps ||
++            string.IsNullOrEmpty(uri.Host))
++        {
++            return false;
++        }
++
++        var host = uri.Host.TrimEnd('.');
++        if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase) ||
++            host.EndsWith(".localhost", StringComparison.OrdinalIgnoreCase))
++        {
++            return false;
++        }
++
++        return !IPAddress.TryParse(uri.Host, out var address) || !IsLocalAddress(address);
++    }
++
++    private static bool IsLocalAddress(IPAddress address)
++    {
++        if (address.IsIPv4MappedToIPv6)
++        {
++            address = address.MapToIPv4();
++        }
++
++        if (IPAddress.IsLoopback(address))
++        {
++            return true;
++        }
++
++        if (address.AddressFamily == AddressFamily.InterNetwork)
++        {
++            var bytes = address.GetAddressBytes();
++            return bytes[0] == 10 ||
++                   bytes[0] == 127 ||
++                   (bytes[0] == 169 && bytes[1] == 254) ||
++                   (bytes[0] == 172 && bytes[1] >= 16 && bytes[1] <= 31) ||
++                   (bytes[0] == 192 && bytes[1] == 168);
++        }
++
++        if (address.AddressFamily == AddressFamily.InterNetworkV6)
++        {
++            var bytes = address.GetAddressBytes();
++            return address.IsIPv6LinkLocal ||
++                   address.IsIPv6SiteLocal ||
++                   (bytes[0] & 0xfe) == 0xfc;
++        }
++
++        return false;
++    }
+ }

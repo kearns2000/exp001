@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/OutboundUrlPolicy.cs",
+      "content": "using System.Net;\nusing System.Net.Sockets;\n\nnamespace Target;\n\npublic static class OutboundUrlPolicy\n{\n    public static bool IsAllowed(string value)\n    {\n        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||\n            !string.Equals(uri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) ||\n            string.IsNullOrEmpty(uri.Host))\n        {\n            return false;\n        }\n\n        if (string.Equals(uri.Host.TrimEnd(\u0027.\u0027), \u0022localhost\u0022, StringComparison.OrdinalIgnoreCase))\n        {\n            return false;\n        }\n\n        return !IPAddress.TryParse(uri.Host, out var address) || !IsPrivateOrLocal(address);\n    }\n\n    private static bool IsPrivateOrLocal(IPAddress address)\n    {\n        if (address.IsIPv4MappedToIPv6)\n        {\n            address = address.MapToIPv4();\n        }\n\n        if (IPAddress.IsLoopback(address))\n        {\n            return true;\n        }\n\n        var bytes = address.GetAddressBytes();\n\n        if (address.AddressFamily == AddressFamily.InterNetwork)\n        {\n            return bytes[0] == 10 ||\n                   bytes[0] == 127 ||\n                   (bytes[0] == 169 \u0026\u0026 bytes[1] == 254) ||\n                   (bytes[0] == 172 \u0026\u0026 bytes[1] \u003E= 16 \u0026\u0026 bytes[1] \u003C= 31) ||\n                   (bytes[0] == 192 \u0026\u0026 bytes[1] == 168);\n        }\n\n        return address.AddressFamily == AddressFamily.InterNetworkV6 \u0026\u0026\n               ((bytes[0] == 0xfe \u0026\u0026 (bytes[1] \u0026 0xc0) == 0x80) ||\n                (bytes[0] \u0026 0xfe) == 0xfc);\n    }\n}\n"
+    }
+  ]
+}

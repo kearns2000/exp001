@@ -1,0 +1,241 @@
+RUN  T01-sql-injection__model-a__r02
+RUN  T01-sql-injection__model-a__r01
+DONE T01-sql-injection__model-a__r01 joint=True decision=Pass
+RUN  T01-sql-injection__model-a__r03
+DONE T01-sql-injection__model-a__r02 joint=True decision=Pass
+RUN  T01-sql-injection__model-a__r04
+DONE T01-sql-injection__model-a__r03 joint=True decision=Pass
+RUN  T01-sql-injection__model-a__r05
+DONE T01-sql-injection__model-a__r04 joint=True decision=Pass
+RUN  T01-sql-injection__model-b__r01
+DONE T01-sql-injection__model-a__r05 joint=True decision=Pass
+RUN  T01-sql-injection__model-b__r02
+DONE T01-sql-injection__model-b__r01 joint=True decision=Pass
+RUN  T01-sql-injection__model-b__r03
+DONE T01-sql-injection__model-b__r03 joint=True decision=Pass
+RUN  T01-sql-injection__model-b__r04
+DONE T01-sql-injection__model-b__r02 joint=True decision=Pass
+RUN  T01-sql-injection__model-b__r05
+DONE T01-sql-injection__model-b__r04 joint=True decision=Pass
+RUN  T02-path-traversal__model-a__r01
+DONE T01-sql-injection__model-b__r05 joint=True decision=Pass
+RUN  T02-path-traversal__model-a__r02
+DONE T02-path-traversal__model-a__r01 joint=True decision=Pass
+RUN  T02-path-traversal__model-a__r03
+DONE T02-path-traversal__model-a__r02 joint=True decision=Pass
+RUN  T02-path-traversal__model-a__r04
+DONE T02-path-traversal__model-a__r03 joint=True decision=Pass
+RUN  T02-path-traversal__model-a__r05
+DONE T02-path-traversal__model-a__r04 joint=True decision=Pass
+RUN  T02-path-traversal__model-b__r01
+DONE T02-path-traversal__model-a__r05 joint=True decision=Pass
+RUN  T02-path-traversal__model-b__r02
+DONE T02-path-traversal__model-b__r01 joint=True decision=Pass
+RUN  T02-path-traversal__model-b__r03
+DONE T02-path-traversal__model-b__r02 joint=True decision=Pass
+RUN  T02-path-traversal__model-b__r04
+DONE T02-path-traversal__model-b__r03 joint=True decision=Pass
+RUN  T02-path-traversal__model-b__r05
+DONE T02-path-traversal__model-b__r04 joint=True decision=Pass
+RUN  T03-command-injection__model-a__r01
+DONE T02-path-traversal__model-b__r05 joint=True decision=Pass
+RUN  T03-command-injection__model-a__r02
+DONE T03-command-injection__model-a__r01 joint=True decision=Pass
+RUN  T03-command-injection__model-a__r03
+DONE T03-command-injection__model-a__r02 joint=True decision=Pass
+RUN  T03-command-injection__model-a__r04
+DONE T03-command-injection__model-a__r03 joint=True decision=Pass
+RUN  T03-command-injection__model-a__r05
+DONE T03-command-injection__model-a__r04 joint=True decision=Pass
+RUN  T03-command-injection__model-b__r01
+DONE T03-command-injection__model-a__r05 joint=True decision=Pass
+RUN  T03-command-injection__model-b__r02
+DONE T03-command-injection__model-b__r01 joint=True decision=Pass
+RUN  T03-command-injection__model-b__r03
+DONE T03-command-injection__model-b__r02 joint=True decision=Pass
+RUN  T03-command-injection__model-b__r04
+DONE T03-command-injection__model-b__r03 joint=True decision=Pass
+RUN  T03-command-injection__model-b__r05
+DONE T03-command-injection__model-b__r04 joint=True decision=Pass
+RUN  T04-ssrf__model-a__r01
+DONE T03-command-injection__model-b__r05 joint=True decision=Pass
+RUN  T04-ssrf__model-a__r02
+DONE T04-ssrf__model-a__r01 joint=True decision=Pass
+RUN  T04-ssrf__model-a__r03
+DONE T04-ssrf__model-a__r02 joint=True decision=Pass
+RUN  T04-ssrf__model-a__r04
+DONE T04-ssrf__model-a__r03 joint=True decision=Pass
+RUN  T04-ssrf__model-a__r05
+DONE T04-ssrf__model-a__r04 joint=True decision=Pass
+RUN  T04-ssrf__model-b__r01
+DONE T04-ssrf__model-b__r01 joint=True decision=Pass
+RUN  T04-ssrf__model-b__r02
+DONE T04-ssrf__model-a__r05 joint=True decision=Pass
+RUN  T04-ssrf__model-b__r03
+DONE T04-ssrf__model-b__r02 joint=True decision=Pass
+RUN  T04-ssrf__model-b__r04
+DONE T04-ssrf__model-b__r03 joint=True decision=Pass
+RUN  T04-ssrf__model-b__r05
+DONE T04-ssrf__model-b__r04 joint=True decision=Pass
+RUN  T05-tenant-isolation__model-a__r01
+DONE T04-ssrf__model-b__r05 joint=True decision=Pass
+RUN  T05-tenant-isolation__model-a__r02
+DONE T05-tenant-isolation__model-a__r01 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-a__r03
+DONE T05-tenant-isolation__model-a__r02 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-a__r04
+DONE T05-tenant-isolation__model-a__r03 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-a__r05
+DONE T05-tenant-isolation__model-a__r04 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-b__r01
+DONE T05-tenant-isolation__model-a__r05 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-b__r02
+DONE T05-tenant-isolation__model-b__r01 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-b__r03
+DONE T05-tenant-isolation__model-b__r02 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-b__r04
+DONE T05-tenant-isolation__model-b__r03 joint=True decision=Escalate
+RUN  T05-tenant-isolation__model-b__r05
+DONE T05-tenant-isolation__model-b__r04 joint=True decision=Escalate
+RUN  T06-fail-open__model-a__r01
+DONE T05-tenant-isolation__model-b__r05 joint=True decision=Escalate
+RUN  T06-fail-open__model-a__r02
+DONE T06-fail-open__model-a__r01 joint=True decision=Escalate
+RUN  T06-fail-open__model-a__r03
+DONE T06-fail-open__model-a__r02 joint=True decision=Escalate
+RUN  T06-fail-open__model-a__r04
+DONE T06-fail-open__model-a__r03 joint=True decision=Escalate
+RUN  T06-fail-open__model-a__r05
+DONE T06-fail-open__model-a__r04 joint=True decision=Escalate
+RUN  T06-fail-open__model-b__r01
+DONE T06-fail-open__model-a__r05 joint=True decision=Escalate
+RUN  T06-fail-open__model-b__r02
+DONE T06-fail-open__model-b__r01 joint=True decision=Escalate
+RUN  T06-fail-open__model-b__r03
+DONE T06-fail-open__model-b__r02 joint=True decision=Escalate
+RUN  T06-fail-open__model-b__r04
+DONE T06-fail-open__model-b__r03 joint=True decision=Escalate
+RUN  T06-fail-open__model-b__r05
+DONE T06-fail-open__model-b__r04 joint=True decision=Escalate
+RUN  T07-sensitive-logging__model-a__r01
+DONE T06-fail-open__model-b__r05 joint=True decision=Escalate
+RUN  T07-sensitive-logging__model-a__r02
+DONE T07-sensitive-logging__model-a__r01 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-a__r03
+DONE T07-sensitive-logging__model-a__r02 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-a__r04
+DONE T07-sensitive-logging__model-a__r03 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-a__r05
+DONE T07-sensitive-logging__model-a__r04 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-b__r01
+DONE T07-sensitive-logging__model-a__r05 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-b__r02
+DONE T07-sensitive-logging__model-b__r01 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-b__r03
+DONE T07-sensitive-logging__model-b__r02 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-b__r04
+DONE T07-sensitive-logging__model-b__r03 joint=True decision=Pass
+RUN  T07-sensitive-logging__model-b__r05
+DONE T07-sensitive-logging__model-b__r04 joint=True decision=Pass
+RUN  T08-weak-hash__model-a__r01
+DONE T07-sensitive-logging__model-b__r05 joint=True decision=Pass
+RUN  T08-weak-hash__model-a__r02
+DONE T08-weak-hash__model-a__r01 joint=True decision=Pass
+RUN  T08-weak-hash__model-a__r03
+DONE T08-weak-hash__model-a__r02 joint=True decision=Pass
+RUN  T08-weak-hash__model-a__r04
+DONE T08-weak-hash__model-a__r03 joint=True decision=Pass
+RUN  T08-weak-hash__model-a__r05
+DONE T08-weak-hash__model-a__r04 joint=True decision=Pass
+RUN  T08-weak-hash__model-b__r01
+DONE T08-weak-hash__model-a__r05 joint=True decision=Pass
+RUN  T08-weak-hash__model-b__r02
+DONE T08-weak-hash__model-b__r01 joint=True decision=Pass
+RUN  T08-weak-hash__model-b__r03
+DONE T08-weak-hash__model-b__r02 joint=True decision=Pass
+RUN  T08-weak-hash__model-b__r04
+DONE T08-weak-hash__model-b__r03 joint=True decision=Pass
+RUN  T08-weak-hash__model-b__r05
+DONE T08-weak-hash__model-b__r04 joint=True decision=Pass
+RUN  T09-certificate-validation__model-a__r01
+DONE T08-weak-hash__model-b__r05 joint=True decision=Pass
+RUN  T09-certificate-validation__model-a__r02
+DONE T09-certificate-validation__model-a__r01 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-a__r03
+DONE T09-certificate-validation__model-a__r02 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-a__r04
+DONE T09-certificate-validation__model-a__r03 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-a__r05
+DONE T09-certificate-validation__model-a__r04 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-b__r01
+DONE T09-certificate-validation__model-a__r05 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-b__r02
+DONE T09-certificate-validation__model-b__r01 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-b__r03
+DONE T09-certificate-validation__model-b__r02 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-b__r04
+DONE T09-certificate-validation__model-b__r03 joint=True decision=Escalate
+RUN  T09-certificate-validation__model-b__r05
+DONE T09-certificate-validation__model-b__r04 joint=True decision=Escalate
+RUN  T10-zip-slip__model-a__r01
+DONE T09-certificate-validation__model-b__r05 joint=True decision=Escalate
+RUN  T10-zip-slip__model-a__r02
+DONE T10-zip-slip__model-a__r01 joint=False decision=Reject
+RUN  T10-zip-slip__model-a__r03
+DONE T10-zip-slip__model-a__r02 joint=True decision=Pass
+RUN  T10-zip-slip__model-a__r04
+DONE T10-zip-slip__model-a__r03 joint=True decision=Pass
+RUN  T10-zip-slip__model-a__r05
+DONE T10-zip-slip__model-a__r04 joint=True decision=Pass
+RUN  T10-zip-slip__model-b__r01
+DONE T10-zip-slip__model-a__r05 joint=True decision=Pass
+RUN  T10-zip-slip__model-b__r02
+DONE T10-zip-slip__model-b__r01 joint=True decision=Pass
+RUN  T10-zip-slip__model-b__r03
+DONE T10-zip-slip__model-b__r02 joint=True decision=Pass
+RUN  T10-zip-slip__model-b__r04
+DONE T10-zip-slip__model-b__r03 joint=True decision=Pass
+RUN  T10-zip-slip__model-b__r05
+DONE T10-zip-slip__model-b__r04 joint=True decision=Pass
+RUN  T11-open-redirect__model-a__r01
+DONE T10-zip-slip__model-b__r05 joint=True decision=Pass
+RUN  T11-open-redirect__model-a__r02
+DONE T11-open-redirect__model-a__r01 joint=False decision=Pass
+RUN  T11-open-redirect__model-a__r03
+DONE T11-open-redirect__model-a__r02 joint=False decision=Pass
+RUN  T11-open-redirect__model-a__r04
+DONE T11-open-redirect__model-a__r03 joint=False decision=Pass
+RUN  T11-open-redirect__model-a__r05
+DONE T11-open-redirect__model-a__r04 joint=False decision=Pass
+RUN  T11-open-redirect__model-b__r01
+DONE T11-open-redirect__model-a__r05 joint=False decision=Pass
+RUN  T11-open-redirect__model-b__r02
+DONE T11-open-redirect__model-b__r01 joint=False decision=Pass
+RUN  T11-open-redirect__model-b__r03
+DONE T11-open-redirect__model-b__r02 joint=False decision=Pass
+RUN  T11-open-redirect__model-b__r04
+DONE T11-open-redirect__model-b__r03 joint=False decision=Pass
+RUN  T11-open-redirect__model-b__r05
+DONE T11-open-redirect__model-b__r04 joint=False decision=Pass
+RUN  T12-role-authorisation__model-a__r01
+DONE T11-open-redirect__model-b__r05 joint=False decision=Pass
+RUN  T12-role-authorisation__model-a__r02
+DONE T12-role-authorisation__model-a__r01 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-a__r03
+DONE T12-role-authorisation__model-a__r02 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-a__r04
+DONE T12-role-authorisation__model-a__r03 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-a__r05
+DONE T12-role-authorisation__model-a__r04 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-b__r01
+DONE T12-role-authorisation__model-a__r05 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-b__r02
+DONE T12-role-authorisation__model-b__r01 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-b__r03
+DONE T12-role-authorisation__model-b__r02 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-b__r04
+DONE T12-role-authorisation__model-b__r03 joint=True decision=Escalate
+RUN  T12-role-authorisation__model-b__r05
+DONE T12-role-authorisation__model-b__r04 joint=True decision=Escalate
+DONE T12-role-authorisation__model-b__r05 joint=True decision=Escalate
+Aggregated 120 candidate results into /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb.

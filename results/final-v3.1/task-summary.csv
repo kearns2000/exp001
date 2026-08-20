@@ -1,0 +1,13 @@
+task_id,cwe,n,edit_applied,applied_joint_correct,applied_defective,verification_rejected,verification_escalated,applied_false_negatives
+"T01-sql-injection","CWE-89",10,10,10,0,0,0,0
+"T02-path-traversal","CWE-22",10,10,10,0,0,0,0
+"T03-command-injection","CWE-78",10,10,10,0,0,0,0
+"T04-ssrf","CWE-918",10,10,10,0,0,0,0
+"T05-tenant-isolation","CWE-639",10,10,10,0,0,10,0
+"T06-fail-open","CWE-755",10,10,10,0,0,10,0
+"T07-sensitive-logging","CWE-532",10,10,10,0,0,0,0
+"T08-weak-hash","CWE-327",10,10,10,0,0,0,0
+"T09-certificate-validation","CWE-295",10,10,10,0,0,10,0
+"T10-zip-slip","CWE-22",10,10,9,1,1,0,0
+"T11-open-redirect","CWE-601",10,10,0,10,0,0,10
+"T12-role-authorisation","CWE-862",10,10,10,0,0,10,0

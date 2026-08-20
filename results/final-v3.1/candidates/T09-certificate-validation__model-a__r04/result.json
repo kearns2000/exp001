@@ -1,0 +1,100 @@
+{
+  "experimentId": "emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb",
+  "candidateId": "T09-certificate-validation__model-a__r04",
+  "taskId": "T09-certificate-validation",
+  "cwe": "CWE-295",
+  "modelId": "model-a",
+  "provider": "openai",
+  "model": "gpt-5.6-sol",
+  "repetition": 4,
+  "startedAt": "2026-08-19T20:46:59.7043463+00:00",
+  "generationDurationMs": 1785,
+  "inputTokens": 953,
+  "outputTokens": 63,
+  "patchProduced": true,
+  "patchApplied": true,
+  "patchSha256": "c16a36a14d7492fe0a78041f080d2cf8d5a128e84a7c588d8e780a8df2607d2e",
+  "patchPath": "candidates/T09-certificate-validation__model-a__r04/candidate.diff",
+  "gates": [
+    {
+      "gate": "edit-application",
+      "outcome": "Pass",
+      "durationMs": 5,
+      "summary": "Applied 1 complete-file replacement(s).",
+      "artifactPath": "candidate.edits.json"
+    },
+    {
+      "gate": "policy",
+      "outcome": "Escalate",
+      "durationMs": 2,
+      "summary": "Patch touches a sensitive path and requires code-owner review.",
+      "artifactPath": null
+    },
+    {
+      "gate": "restore",
+      "outcome": "Pass",
+      "durationMs": 1715,
+      "summary": "Determining projects to restore...\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T09-certificate-validation__model-a__r04/workspace/PublicTests/PublicTests.csproj (in 209 ms).\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T09-certificate-validation__model-a__r04/workspace/Target/Target.csproj (in 179 ms).",
+      "artifactPath": null
+    },
+    {
+      "gate": "build",
+      "outcome": "Pass",
+      "durationMs": 1924,
+      "summary": "Target -\u003E /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T09-certificate-validation__model-a__r04/workspace/Target/bin/Release/net10.0/Target.dll\n  PublicTests -\u003E /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T09-certificate-validation__model-a__r04/workspace/PublicTests/bin/Release/net10.0/PublicTests.dll\n\nBuild succeeded.\n    0 Warning(s)\n    0 Error(s)\n\nTime Elapsed 00:00:01.44",
+      "artifactPath": null
+    },
+    {
+      "gate": "public-tests",
+      "outcome": "Pass",
+      "durationMs": 2299,
+      "summary": "",
+      "artifactPath": null
+    },
+    {
+      "gate": "nuget-audit",
+      "outcome": "Pass",
+      "durationMs": 2130,
+      "summary": "Determining projects to restore...\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T09-certificate-validation__model-a__r04/workspace/Target/Target.csproj (in 283 ms).\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T09-certificate-validation__model-a__r04/workspace/PublicTests/PublicTests.csproj (in 308 ms).",
+      "artifactPath": null
+    },
+    {
+      "gate": "security-proof-tests",
+      "outcome": "Pass",
+      "durationMs": 3992,
+      "summary": "",
+      "artifactPath": null
+    },
+    {
+      "gate": "codeql",
+      "outcome": "Pass",
+      "durationMs": 145464,
+      "summary": "No CodeQL findings reported.",
+      "artifactPath": "codeql.sarif"
+    },
+    {
+      "gate": "oracle-functional",
+      "outcome": "Pass",
+      "durationMs": 2415,
+      "summary": "",
+      "artifactPath": null
+    },
+    {
+      "gate": "oracle-security",
+      "outcome": "Pass",
+      "durationMs": 3190,
+      "summary": "",
+      "artifactPath": null
+    }
+  ],
+  "automaticDecision": "Escalate",
+  "functionalCorrectness": true,
+  "securityCorrectness": true,
+  "jointCorrectness": true,
+  "firstRejectingGate": "",
+  "changedFiles": 1,
+  "addedLines": 1,
+  "deletedLines": 1,
+  "providerRequestId": "resp_04849f27d43a5adf006a861643ca8c81a09801c00385b740d4",
+  "error": null
+}

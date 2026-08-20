@@ -1,0 +1,101 @@
+{
+  "id": "resp_005143ac552d2f89006a8600e534e081a3ab6f47a78eff7fb2",
+  "object": "response",
+  "created_at": 1787166949,
+  "status": "completed",
+  "background": false,
+  "billing": {
+    "payer": "developer"
+  },
+  "completed_at": 1787166958,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": 8000,
+  "max_tool_calls": null,
+  "model": "gpt-5.6-terra",
+  "moderation": null,
+  "output": [
+    {
+      "id": "rs_005143ac552d2f89006a8600e5b4dc81a39d77fc6ea030704a",
+      "type": "reasoning",
+      "content": [],
+      "encrypted_content": "gAAAAABqhgDuOcew1p_-PjtkoACp-jrhOJELgbN5xieISLVKok1w6ahYcMz9nzb_BynJ16s00hSRvdLb9UiDSnlB-QKqLQ99NEOv3SILMB42iZuPnvo-VgoEGvRc26SZgoyWlNs9fkby9brGe-6s9LxK7gwYasIUvdye_a9-96Ge14AfascX1xFoHg_1CSqTgi6bZVwJ064KiUpAIIIXgh2L6LgIFirybl6vWV0eCWAtkU3F2GZHWwfDeE8mXZ9ioR8E7FMi9DQr4VIgkBsfPCnzpuvRke04UKeKaFgNIIYXZdHA3uI2iM6sPZRhV5bECZKAPFX7e4ULqH_c8z4GiGM82q1hfj53tWEd4NlOofY0nsxyBtLhk8q1qNpKK_iDh9AePvtm6g9zHB-nKpChRg_OFkSbGEQZy8HRK668br3bWq7MCwFkaw4eetwiK9zYiUS1LK4u_1lKdXWA0Txc0g8IR-51ixoV7s3bfE8O77tKyWjoUzl5ppSjBqIm3ht-qlhPvskqN7JX97vuOt8xqeQVBt1io6GaRu0uXSlLech5iFCVEVysW4dSdg9YBvpTpV1vNnNCAWfpDvZsNgTQcUXM7PMQvb3zXfYmQQ1zCEdgDSodaVSmNINefH4feVwm8zvtKOs-dnPZlfIY1KydKMZKXQH4l2DpJZ8o3V82ZDhkBjVIR9wjvhR_w8D38Y4s6_srk7Pg8jSn_INa7l2O_FzwZeMv83MCoiKnDcs2z6BRBez0mZ5TPVBJY_-mo50AfizN8cvNglUkI2TkcaGmFwwTJK37UIjbKyONTihAC-bKEL9Djmq2Nm-2y6TV4n9wwU5oo_L5vD1mL7B7a_Pv1zetAyyQGfov6X0pWKsKFKvN3WLkhs5GvqNj1-yZaIJ_N-rGJqGbg-0oyo-A6_9G39SzjfRpQODd6Nshy6UaiU3LJJth15wYKqk6yDagjufHW45e7blJWRUhqE7YoaHOjiWITdqQjmyFfJxiDFhsfvGnNIqfzTcTE2PgzcJjtOyimxlShlfjWu0xSOqwyMeoHIpTkIFj30xtYkpZm2brNOyeEQ-uiVhs4DEMKMnrkCwTJmqNK1TGEH7livTXUhwhtghSCtLcdhY3cskhU0B-qM4jBGaog0LNvn8DM0l5EdiXQwgPiYpYUI0K8no2F_xgwzN4q6b_GErD61wxHIr55bX9NgppIaPHpFhon5z5BEv_822Q6ovvVW9I5T1GMvMAdC05Xb1Z-gkO6vQR9yen6FPGOjllghWHupIbP76Va0CauD8GhqpkQdSIqcOAUm2jWWs4KRR-dHobnmEyPE-qJZOU1MnP-QekTQowDQN2U-XsTjiwMFnjjXgSZxImC367Qxo1ySioLGfll55RaLt2h_HfhkCQ-W7Lw1RD4jnfArrLCZhH7BlneZniR21oxuIhKddpe-U3U8vS657DBgjGEqckiV0LFgZb8doWY9kDu32X_8fQSv-CdK813iMQEX5_KHoXiPxVKebNUInAUdU_ffrGgetZdcTvxMWHsXxU2SfbQPveNHLfVIhBlAPHfePyPaLRcGFZw_gsr6ikX0VnDkDuZ_y6VKTcGUTKJId7etf1z35wD2grTpXGTzU9v4Zbglh30PzALiXjoiR92IyU6oci9RuvAM6d9apIBb9y7Pw0jPfLTuo7ocXvfj1vq0tY4DJ9qqPKJKC-qnB2F93ZqoCrM1JQOapv5hop65dGUuZyKsUNCTPImf-JBFYJuJY9WQVvhAR7MeKJIWy2JgHJ4XrW-s5Af6C-HfcxuIZT8xkkpsyhjqp9ZzVC-O-CeBbzau2neTzsC-5eZvB9hcIQODnO8qzGJr8xoDoHi0kHAyTNWtM-kvk6GgZpBlI8J75RKNS-AMpX0kFohrimKs-VWDZMFUwm2aZJyAAchlt392Dqa8txTiEGX9W8-RalFGlbEUFcVdCJkiGs2tN3nA0rx96FrNC4GEz8EUwaqAGPp_x1Bla5ZfZRtwLibZ7GdmW5LqxQMe4_rYrGnpn6Mw_iLX-kv7kpKEJ_XwdELcKl6goyr1osmFA1leZ0t827VNXfc_-yeam1BC_ARM6CgAP1EyNgD-8LAz--DPD2dwvKEu4f_vZBygR_jtv2UFmTgY0-1wfTobDKsljQtvrUUO6xabeY1CZGfak8nymVnkz5aOafwnm8Yt-euykAi3HA2tBb8etUSr1NsZCD1OALGG-AhWBIaBZYmbumxFAJrdPM0aKChD27JGByo2EUF2qW5CAOABFZpT8uq3XJtc_dSEma359PFSKKExJLpGaJHBvWIMifLONTdsozdNPf9iw5g0yVOg2VkljPG0nqhNHaWUF2Ns-IDLUScKSdQPSEEfdGmVaP_piPclE4vDhHCp9_YRaNWf2IekkTTYK-Im7dLKW_QUEpK1ufxAvOHWuVHvQeyB3SgXN9LRNTPBPXi0QXacmXGnEGaeF-_Gp1N4BtZklOWXQ8b62FtgVNzpBPkqZtQRThAVNR9NokXIs_LACiFrv2SG4iaMtlX3ehlDT8Bl2HY6Xsa2Jb82-DlsbRNo2cgdFckHjz9RV-SwzoCztzo26T82GyMqIvtW4M9PKVMTZCvT9WgNprs2A527SzuwjQ4F7t2hdR_lRi7XAFIllMX8DJarxlX4kQwNz4LUFvzuRG0zpKB7xFCV_eZJxPhPWavcaBeI4bAF6E_ofjI8WFYYhTf0wbJP9sMICxMFMNGAz79JLjRo2EffZkzFE5uR1BvGRml4cQM6tnq1Nk0weL2Ylazg5g7le7nROnLog4igFIVjbEjGmgZ9cuAn496CZHaESJ7fFA83-M7G68iItdn8rD7RLowvzwNY4I4kbroBIomZB6NSu6EaVU6WWrmBu24k8Y0LijN941bF8TmmUPMjQCABM0fpiXLAV2xSzJ7uocDsbWOpY-N1cqGSf3cvvJrU0acTu51mW13iZxzEmStmlAhxIM_hYeKZNkjCSq4oSUt8q_k4YrtPFPcR4P3hvflvyjr4ZmVfBDLOkscTu1_l3nI5bi2Mt6gWQ-RFTLUTYRUCN44mer0go1-YDs7DuRVBTXJrRCV10oGxdZOASHJKRBz0Vxjq5vI_MNdClW--G5cvxQPapTjaOb3aN69-AAa-qFmU_ucgLRxoMRLyW6ozXcfcyQ72qYXAY48qa4ffrF0KTyBYYQM-N-Gy_UqxvVG6dB4ovkWRkPJwJOfWo-m_PjNqY2sMSXE3JsPMBxPNQhr2VIo6tpTD7euqpbn5KiZVw8gS4s0aK7_uUCcflnjGCSnnp86ZZissq3sGcI5664UV6Gk3vimN3QzMBEdEGdG72E7I8ObxMKdxlH3MHqVlnytiKFrvKbQmI-MmnQMyO_MKjGUCa9huOSaXL95snqSP1-fchZFuJuckt2bdNTRg5YFB5QDno6u2w82jeu4sU2xw1MU2IunfkLVUpknwj1X-3CvzCw6deGm5mc9OYcF4DhhOBJX2gSRL7hZHT6ULKKMkZLsKZlnZz_MPMyvR9tuuGm__Xa6UXQVv_wzMdmDbbz2qyPo5m1nppKiIQpoIk8k8tH0nqKsOc0WeXha3zRIYDkhqL5DTwBONoiKCSMhA7b0eN2QavQqPiS5bv4q86jwcdO5EuRx3Y8_MbPUl4BIYTj3gzRYTW6VmdtJHciFy9Qs8Dln4Ul3IrRaJTuHShXW-ARooxyVUDje7iw0X9w4gxap202wJEeP35T_u7lkVmmQHJTS_F6Pq0D5WBAiQG-RZ9eA4-BPAi8kLEj97u1BRIul3cFaT6em8ksfMmUvCKUBsDOc9036XpIqjLAx7WS1GMPG0XAjusuX-sqJ4iOEbbiFKEw6Wg6BTsWDsZUpnRT6U4GLszysGusYCUt72I5yFKcBs415Tmiqb2WbR2ZiyZX2q-lYDTtKlOk4OVSem5iZzbI8yQloVu7EJfxI9U5B7Z9H0XTWZWRdrPwEYex-3djdYqV5nZpEOfrnSDo-s6FgYNop6rNcEDdNVvegAZl95IU3wglg4FSEwEU0tA5UE3gp5HhJdyHnpp4iizXsOq34DPGvrjQwrN4LXryHyDazJ4cZWXh_826toct4NcFTRawAI2bndKATXdRyazF63EovCI6f6HsXk9TxtFHWQ2xGxAdFynk5ot4WMHqpMBzYHeFImf-ZnPQ0zv1pepngUWY4Xl7nFSzn9eHfczKZLU77HQ4MysXnUjDRJfmqVV1oFA5JXnmmYa6Pf5PWJ9g8-3AONsevhQm_HdqKZIxkRkLT3a4ADeQ2kmHWrjvP4GEpYJ1df9T9y-ZFO0pFvvgvzgHUtbMIIPldhqNJ5vCFeaaBfZ0mlC6ImJ7bmRni5P3SeFRg_V7sMj3DgYnowYOnvKRB6slYumA9eYhzExohHUY3uMExJxUJu2NVo4=",
+      "summary": []
+    },
+    {
+      "id": "msg_005143ac552d2f89006a8600ed19a081a391088ea113a62d80",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"files\":[{\"path\":\"Target/FileStore.cs\",\"content\":\"namespace Target;\\npublic static class FileStore\\n{\\n    public static string Resolve(string root, string relativePath)\\n    {\\n        if (Path.IsPathRooted(relativePath))\\n        {\\n            throw new ArgumentException(\\\"The path must be relative to the storage root.\\\", nameof(relativePath));\\n        }\\n\\n        var fullRoot = Path.GetFullPath(root);\\n        var fullPath = Path.GetFullPath(Path.Combine(fullRoot, relativePath));\\n        var rootPrefix = Path.EndsInDirectorySeparator(fullRoot)\\n            ? fullRoot\\n            : fullRoot + Path.DirectorySeparatorChar;\\n        var comparison = OperatingSystem.IsWindows()\\n            ? StringComparison.OrdinalIgnoreCase\\n            : StringComparison.Ordinal;\\n\\n        if (!fullPath.Equals(fullRoot, comparison) && !fullPath.StartsWith(rootPrefix, comparison))\\n        {\\n            throw new ArgumentException(\\\"The path resolves outside the storage root.\\\", nameof(relativePath));\\n        }\\n\\n        return fullPath;\\n    }\\n}\\n\"}]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "all_turns",
+    "effort": "medium",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": true,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "text"
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 990,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 715,
+    "output_tokens_details": {
+      "reasoning_tokens": 472
+    },
+    "total_tokens": 1705
+  },
+  "user": null,
+  "metadata": {}
+}

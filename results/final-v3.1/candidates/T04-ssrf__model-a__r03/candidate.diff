@@ -1,0 +1,70 @@
+diff --git a/Target/OutboundUrlPolicy.cs b/Target/OutboundUrlPolicy.cs
+index f1cb672..8caea50 100644
+--- a/Target/OutboundUrlPolicy.cs
++++ b/Target/OutboundUrlPolicy.cs
+@@ -1,6 +1,64 @@
++using System.Net;
++using System.Net.Sockets;
++
+ namespace Target;
++
+ public static class OutboundUrlPolicy
+ {
+     public static bool IsAllowed(string value)
+-        => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
++    {
++        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
++            !uri.Scheme.Equals(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) ||
++            string.IsNullOrEmpty(uri.Host))
++        {
++            return false;
++        }
++
++        var host = uri.IdnHost.TrimEnd('.');
++        if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase) ||
++            host.EndsWith(".localhost", StringComparison.OrdinalIgnoreCase))
++        {
++            return false;
++        }
++
++        var addressText = host.Trim('[', ']');
++        if (addressText.Contains(':', StringComparison.Ordinal))
++        {
++            var scopeIndex = addressText.IndexOf('%');
++            if (scopeIndex >= 0)
++            {
++                addressText = addressText[..scopeIndex];
++            }
++        }
++
++        return !IPAddress.TryParse(addressText, out var address) || !IsPrivate(address);
++    }
++
++    private static bool IsPrivate(IPAddress address)
++    {
++        if (address.IsIPv4MappedToIPv6)
++        {
++            address = address.MapToIPv4();
++        }
++
++        if (IPAddress.IsLoopback(address))
++        {
++            return true;
++        }
++
++        var bytes = address.GetAddressBytes();
++        if (address.AddressFamily == AddressFamily.InterNetwork)
++        {
++            return bytes[0] == 0 ||
++                   bytes[0] == 10 ||
++                   (bytes[0] == 100 && (bytes[1] & 0xc0) == 64) ||
++                   (bytes[0] == 169 && bytes[1] == 254) ||
++                   (bytes[0] == 172 && (bytes[1] & 0xf0) == 16) ||
++                   (bytes[0] == 192 && bytes[1] == 168);
++        }
++
++        return address.Equals(IPAddress.IPv6Any) ||
++               (bytes[0] & 0xfe) == 0xfc ||
++               (bytes[0] == 0xfe && (bytes[1] & 0xc0) is 0x80 or 0xc0);
++    }
+ }

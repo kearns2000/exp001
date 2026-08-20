@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/Authorisation.cs",
+      "content": "namespace Target;\npublic static class Authorisation\n{\n    public static bool Check(Func\u003Cbool\u003E evaluator)\n    {\n        try { return evaluator(); }\n        catch { return false; }\n    }\n}\n"
+    }
+  ]
+}

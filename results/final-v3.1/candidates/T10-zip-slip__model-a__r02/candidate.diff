@@ -1,0 +1,37 @@
+diff --git a/Target/ArchivePath.cs b/Target/ArchivePath.cs
+index 6f69477..351b6a1 100644
+--- a/Target/ArchivePath.cs
++++ b/Target/ArchivePath.cs
+@@ -1,6 +1,31 @@
+ namespace Target;
++
+ public static class ArchivePath
+ {
+     public static string ResolveEntryPath(string extractionRoot, string entryName)
+-        => Path.GetFullPath(Path.Combine(extractionRoot, entryName));
++    {
++        ArgumentNullException.ThrowIfNull(extractionRoot);
++        ArgumentNullException.ThrowIfNull(entryName);
++
++        if (Path.IsPathRooted(entryName) || entryName.Split('/', '\\').Contains("..", StringComparer.Ordinal))
++        {
++            throw new ArgumentException("Archive entry path must be relative and cannot contain traversal segments.", nameof(entryName));
++        }
++
++        var canonicalRoot = Path.GetFullPath(extractionRoot);
++        var destination = Path.GetFullPath(Path.Combine(canonicalRoot, entryName));
++        var rootPrefix = Path.EndsInDirectorySeparator(canonicalRoot)
++            ? canonicalRoot
++            : canonicalRoot + Path.DirectorySeparatorChar;
++        var comparison = OperatingSystem.IsWindows()
++            ? StringComparison.OrdinalIgnoreCase
++            : StringComparison.Ordinal;
++
++        if (!destination.StartsWith(rootPrefix, comparison))
++        {
++            throw new ArgumentException("Archive entry path resolves outside the extraction root.", nameof(entryName));
++        }
++
++        return destination;
++    }
+ }

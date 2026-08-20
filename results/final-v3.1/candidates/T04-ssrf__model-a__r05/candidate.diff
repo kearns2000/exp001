@@ -1,0 +1,71 @@
+diff --git a/Target/OutboundUrlPolicy.cs b/Target/OutboundUrlPolicy.cs
+index f1cb672..a5406c2 100644
+--- a/Target/OutboundUrlPolicy.cs
++++ b/Target/OutboundUrlPolicy.cs
+@@ -1,6 +1,65 @@
++using System.Net;
++
+ namespace Target;
++
+ public static class OutboundUrlPolicy
+ {
+     public static bool IsAllowed(string value)
+-        => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
++    {
++        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
++            !uri.Scheme.Equals(Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase) ||
++            string.IsNullOrEmpty(uri.Host))
++        {
++            return false;
++        }
++
++        var host = uri.Host.TrimEnd('.');
++        if (host.Equals("localhost", StringComparison.OrdinalIgnoreCase) ||
++            host.EndsWith(".localhost", StringComparison.OrdinalIgnoreCase))
++        {
++            return false;
++        }
++
++        if (host.Length >= 2 && host[0] == '[' && host[^1] == ']')
++        {
++            host = host[1..^1];
++        }
++
++        var scopeIndex = host.IndexOf('%');
++        if (scopeIndex >= 0 && host.Contains(':'))
++        {
++            host = host[..scopeIndex];
++        }
++
++        return !IPAddress.TryParse(host, out var address) || !IsPrivateAddress(address);
++    }
++
++    private static bool IsPrivateAddress(IPAddress address)
++    {
++        if (address.IsIPv4MappedToIPv6)
++        {
++            address = address.MapToIPv4();
++        }
++
++        if (IPAddress.IsLoopback(address) ||
++            address.Equals(IPAddress.Any) ||
++            address.Equals(IPAddress.IPv6Any))
++        {
++            return true;
++        }
++
++        var bytes = address.GetAddressBytes();
++        if (bytes.Length == 4)
++        {
++            return bytes[0] == 10 ||
++                   bytes[0] == 127 ||
++                   bytes[0] == 169 && bytes[1] == 254 ||
++                   bytes[0] == 172 && bytes[1] is >= 16 and <= 31 ||
++                   bytes[0] == 192 && bytes[1] == 168;
++        }
++
++        return bytes[0] == 0xfc ||
++               bytes[0] == 0xfd ||
++               bytes[0] == 0xfe && (bytes[1] & 0xc0) is 0x80 or 0xc0;
++    }
+ }

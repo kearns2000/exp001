@@ -1,0 +1,13 @@
+diff --git a/Target/RedirectPolicy.cs b/Target/RedirectPolicy.cs
+index 94169dd..9bee4ca 100644
+--- a/Target/RedirectPolicy.cs
++++ b/Target/RedirectPolicy.cs
+@@ -2,5 +2,7 @@ namespace Target;
+ public static class RedirectPolicy
+ {
+     public static bool IsLocal(string url)
+-        => !string.IsNullOrWhiteSpace(url) && url.StartsWith('/');
++        => !string.IsNullOrWhiteSpace(url)
++            && url[0] == '/'
++            && (url.Length == 1 || (url[1] != '/' && url[1] != '\\'));
+ }

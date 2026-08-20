@@ -1,0 +1,2 @@
+n,tp,fn,fp,tn,rejected,escalated,sensitivity,specificity,ppv,npv,escalation_rate
+120,1,10,0,109,1,40,0.091,1.000,1.000,0.916,0.333

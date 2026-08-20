@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/ArchivePath.cs",
+      "content": "namespace Target;\npublic static class ArchivePath\n{\n    public static string ResolveEntryPath(string extractionRoot, string entryName)\n    {\n        if (Path.IsPathRooted(entryName) ||\n            entryName.StartsWith(\u0027/\u0027) ||\n            entryName.StartsWith(\u0027\\\\\u0027) ||\n            (entryName.Length \u003E= 3 \u0026\u0026\n             char.IsLetter(entryName[0]) \u0026\u0026\n             entryName[1] == \u0027:\u0027 \u0026\u0026\n             (entryName[2] == \u0027/\u0027 || entryName[2] == \u0027\\\\\u0027)) ||\n            entryName.Split(new[] { \u0027/\u0027, \u0027\\\\\u0027 }).Any(part =\u003E part == \u0022..\u0022))\n        {\n            throw new ArgumentException(\u0022Archive entry paths must be relative and must not contain traversal segments.\u0022, nameof(entryName));\n        }\n\n        var root = Path.GetFullPath(extractionRoot);\n        var destination = Path.GetFullPath(Path.Combine(root, entryName));\n        var rootPrefix = root.EndsWith(Path.DirectorySeparatorChar) ? root : root \u002B Path.DirectorySeparatorChar;\n        var comparison = OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;\n\n        if (!string.Equals(destination, root, comparison) \u0026\u0026 !destination.StartsWith(rootPrefix, comparison))\n        {\n            throw new ArgumentException(\u0022Archive entry path resolves outside the extraction root.\u0022, nameof(entryName));\n        }\n\n        return destination;\n    }\n}\n"
+    }
+  ]
+}

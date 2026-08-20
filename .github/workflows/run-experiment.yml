@@ -1,9 +1,22 @@
-name: Run EMSE Study 2 v3 (replacement edits)
+# Frozen Study 2 workflow (protocol v3.1, replacement-file edits).
+#
+# This workflow produced the manuscript dataset in results/final-v3.1/:
+# GitHub Actions run 32289459168, attempt 1, at commit f79cd61. Only the
+# workflow name and explanatory comments have been edited since that run; every
+# input, default, version pin and command below is unchanged. For the
+# byte-identical file as executed, see commit f79cd61.
+#
+# Changing the model IDs, run type, version pins or step order changes the
+# experiment. Reproductions that alter any of them are not comparable with the
+# published results.
+name: Run EMSE Study 2 v3.1 (replacement edits)
 
 on:
   workflow_dispatch:
     inputs:
       run_type:
+        # pilot = 1 repetition per task/model, full = 5. Set in
+        # scripts/make-github-config.py, not here.
         description: "V3 replacement-edit study. Pilot = 24 candidates; Full = 120 candidates"
         required: true
         default: pilot
@@ -49,8 +62,12 @@ env:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   NUGET_XMLDOC_MODE: skip
+  # Provider credentials are read only from GitHub Actions Secrets and are never
+  # written to the repository, the run configuration or the result artifact.
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  # CodeQL is pinned by version and bundle checksum so the static-analysis gate
+  # is reproducible; an unpinned bundle would silently change gate outcomes.
   CODEQL_VERSION: "2.26.3"
   CODEQL_SHA256: "77e5be1b550d66662e600e795b6cf2ea1729e853e3dc79e02594f767039d2a29"
 
@@ -157,6 +174,9 @@ jobs:
       - name: Show experiment plan
         run: dotnet run -c Release --no-build --project src/ExperimentRunner -- plan config/experiment.github.json
 
+      # The runner executes the automatic gate stack, records its decision, and
+      # only then runs the hidden functional and security oracles. The oracles
+      # establish ground truth and never contribute to the automatic decision.
       - name: Run experiment
         id: run
         shell: bash

@@ -1,0 +1,1 @@
+{"files":[{"path":"Target/RolePolicy.cs","content":"namespace Target;\npublic static class RolePolicy\n{\n    public static bool CanDelete(string role)\n        => string.Equals(role, \"Admin\", StringComparison.Ordinal);\n}\n"}]}

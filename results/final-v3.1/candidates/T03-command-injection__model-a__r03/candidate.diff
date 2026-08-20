@@ -1,0 +1,32 @@
+diff --git a/Target/ToolInputPolicy.cs b/Target/ToolInputPolicy.cs
+index f515736..104dc5d 100644
+--- a/Target/ToolInputPolicy.cs
++++ b/Target/ToolInputPolicy.cs
+@@ -1,6 +1,26 @@
+ namespace Target;
++
+ public static class ToolInputPolicy
+ {
+     public static bool IsSafeInput(string fileName)
+-        => !string.IsNullOrWhiteSpace(fileName) && !fileName.Contains(' ');
++    {
++        if (string.IsNullOrEmpty(fileName) || fileName is "." or "..")
++        {
++            return false;
++        }
++
++        foreach (char character in fileName)
++        {
++            bool isLetterOrDigit = character is >= 'A' and <= 'Z'
++                or >= 'a' and <= 'z'
++                or >= '0' and <= '9';
++
++            if (!isLetterOrDigit && character is not ('.' or '_' or '-'))
++            {
++                return false;
++            }
++        }
++
++        return true;
++    }
+ }

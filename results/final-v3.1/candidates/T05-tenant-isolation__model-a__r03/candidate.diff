@@ -1,0 +1,11 @@
+diff --git a/Target/RecordQuery.cs b/Target/RecordQuery.cs
+index 4a4a3fa..923cb7d 100644
+--- a/Target/RecordQuery.cs
++++ b/Target/RecordQuery.cs
+@@ -3,5 +3,5 @@ public sealed record Record(string TenantId, string Id, bool Active);
+ public static class RecordQuery
+ {
+     public static IReadOnlyList<Record> GetVisible(IEnumerable<Record> records, string tenantId)
+-        => records.Where(x => x.Active).ToList();
++        => records.Where(x => x.Active && x.TenantId == tenantId).ToList();
+ }

@@ -1,0 +1,100 @@
+{
+  "experimentId": "emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb",
+  "candidateId": "T10-zip-slip__model-a__r01",
+  "taskId": "T10-zip-slip",
+  "cwe": "CWE-22",
+  "modelId": "model-a",
+  "provider": "openai",
+  "model": "gpt-5.6-sol",
+  "repetition": 1,
+  "startedAt": "2026-08-19T20:57:51.8295813+00:00",
+  "generationDurationMs": 30928,
+  "inputTokens": 999,
+  "outputTokens": 1582,
+  "patchProduced": true,
+  "patchApplied": true,
+  "patchSha256": "ce4953aa474572850925184218cc38b8d0027d93e369d66b1d37a71845b43633",
+  "patchPath": "candidates/T10-zip-slip__model-a__r01/candidate.diff",
+  "gates": [
+    {
+      "gate": "edit-application",
+      "outcome": "Pass",
+      "durationMs": 2,
+      "summary": "Applied 1 complete-file replacement(s).",
+      "artifactPath": "candidate.edits.json"
+    },
+    {
+      "gate": "policy",
+      "outcome": "Pass",
+      "durationMs": 1,
+      "summary": "Diff scope is within task policy.",
+      "artifactPath": null
+    },
+    {
+      "gate": "restore",
+      "outcome": "Pass",
+      "durationMs": 1101,
+      "summary": "Determining projects to restore...\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj (in 131 ms).\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/PublicTests/PublicTests.csproj (in 143 ms).",
+      "artifactPath": null
+    },
+    {
+      "gate": "build",
+      "outcome": "Reject",
+      "durationMs": 990,
+      "summary": "/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n\nBuild FAILED.\n\n/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n    0 Warning(s)\n    1 Error(s)\n\nTime Elapsed 00:00:00.76",
+      "artifactPath": null
+    },
+    {
+      "gate": "public-tests",
+      "outcome": "Reject",
+      "durationMs": 939,
+      "summary": "/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n\nThe build failed. Fix the build errors and run again.",
+      "artifactPath": null
+    },
+    {
+      "gate": "nuget-audit",
+      "outcome": "Pass",
+      "durationMs": 1124,
+      "summary": "Determining projects to restore...\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/PublicTests/PublicTests.csproj (in 157 ms).\n  Restored /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj (in 146 ms).",
+      "artifactPath": null
+    },
+    {
+      "gate": "security-proof-tests",
+      "outcome": "Reject",
+      "durationMs": 1548,
+      "summary": "/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n\nThe build failed. Fix the build errors and run again.",
+      "artifactPath": null
+    },
+    {
+      "gate": "codeql",
+      "outcome": "Indeterminate",
+      "durationMs": 14642,
+      "summary": "[2026-08-19 20:58:30] [build-stdout]   Determining projects to restore...\n[2026-08-19 20:58:31] [build-stdout]   All projects are up-to-date for restore.\n[2026-08-19 20:58:33] [build-stdout] /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n[2026-08-19 20:58:43] [build-stdout] Build FAILED.\n[2026-08-19 20:58:43] [build-stdout] /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n[2026-08-19 20:58:43] [build-stdout]     0 Warning(s)\n[2026-08-19 20:58:43] [build-stdout]     1 Error(s)\n[2026-08-19 20:58:43] [build-stdout] Time Elapsed 00:00:12.55\n[2026-08-19 20:58:43] [ERROR] Spawned process exited abnormally (code 1; tried to run: [/home/runner/.local/codeql-2.26.3/tools/linux64/preload_tracer, dotnet, build, -c, Release, /t:Rebuild, /p:UseSharedCompilation=false])\nInitializing database at /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/codeql-db.\nRunning build command: [dotnet, build, -c, Release, /t:Rebuild, /p:UseSharedCompilation=false]\nRunning command in /home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace: [dotnet, build, -c, Release, /t:Rebuild, /p:UseSharedCompilation=false]\nA fatal error occurred: Exit status 1 from command: [dotnet, build, -c, Release, /t:Rebuild, /p:UseSharedCompilation=false]",
+      "artifactPath": null
+    },
+    {
+      "gate": "oracle-functional",
+      "outcome": "Reject",
+      "durationMs": 2323,
+      "summary": "/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n\nThe build failed. Fix the build errors and run again.",
+      "artifactPath": null
+    },
+    {
+      "gate": "oracle-security",
+      "outcome": "Reject",
+      "durationMs": 2585,
+      "summary": "/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/ArchivePath.cs(21,25): error CS0117: \u0027Path\u0027 does not contain a definition for \u0027IsDirectorySeparator\u0027 [/home/runner/work/exp001/exp001/results/emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb/candidates/T10-zip-slip__model-a__r01/workspace/Target/Target.csproj]\n\nThe build failed. Fix the build errors and run again.",
+      "artifactPath": null
+    }
+  ],
+  "automaticDecision": "Reject",
+  "functionalCorrectness": false,
+  "securityCorrectness": false,
+  "jointCorrectness": false,
+  "firstRejectingGate": "build",
+  "changedFiles": 1,
+  "addedLines": 25,
+  "deletedLines": 1,
+  "providerRequestId": "resp_0b1dc573a89837e6006a8618cfe9a487d2b3bd895d3c283f84",
+  "error": null
+}

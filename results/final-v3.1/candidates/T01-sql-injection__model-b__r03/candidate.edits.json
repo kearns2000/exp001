@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/UserQuery.cs",
+      "content": "namespace Target;\npublic sealed record SqlCommandSpec(string CommandText, IReadOnlyDictionary\u003Cstring, object?\u003E Parameters);\npublic static class UserQuery\n{\n    public static SqlCommandSpec Build(string userName)\n        =\u003E new(\u0022SELECT Id, UserName FROM Users WHERE UserName = @userName\u0022, new Dictionary\u003Cstring, object?\u003E\n        {\n            [\u0022@userName\u0022] = userName\n        });\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+diff --git a/Target/OutboundUrlPolicy.cs b/Target/OutboundUrlPolicy.cs
+index f1cb672..f3aeb2b 100644
+--- a/Target/OutboundUrlPolicy.cs
++++ b/Target/OutboundUrlPolicy.cs
+@@ -1,6 +1,45 @@
++using System.Net;
++
+ namespace Target;
++
+ public static class OutboundUrlPolicy
+ {
+     public static bool IsAllowed(string value)
+-        => Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme == Uri.UriSchemeHttps;
++    {
++        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) ||
++            uri.Scheme != Uri.UriSchemeHttps ||
++            string.IsNullOrEmpty(uri.Host) ||
++            string.Equals(uri.Host.TrimEnd('.'), "localhost", StringComparison.OrdinalIgnoreCase))
++        {
++            return false;
++        }
++
++        return !IPAddress.TryParse(uri.Host, out var address) || !IsPrivateOrLocal(address);
++    }
++
++    private static bool IsPrivateOrLocal(IPAddress address)
++    {
++        if (address.IsIPv4MappedToIPv6)
++        {
++            address = address.MapToIPv4();
++        }
++
++        if (IPAddress.IsLoopback(address) || address.IsIPv6LinkLocal)
++        {
++            return true;
++        }
++
++        var bytes = address.GetAddressBytes();
++        if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
++        {
++            return bytes[0] == 10 ||
++                   bytes[0] == 127 ||
++                   (bytes[0] == 169 && bytes[1] == 254) ||
++                   (bytes[0] == 172 && bytes[1] >= 16 && bytes[1] <= 31) ||
++                   (bytes[0] == 192 && bytes[1] == 168);
++        }
++
++        return address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6 &&
++               (bytes[0] & 0xfe) == 0xfc;
++    }
+ }

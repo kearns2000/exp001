@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/RedirectPolicy.cs",
+      "content": "namespace Target;\npublic static class RedirectPolicy\n{\n    public static bool IsLocal(string url)\n        =\u003E !string.IsNullOrWhiteSpace(url)\n            \u0026\u0026 url[0] == \u0027/\u0027\n            \u0026\u0026 (url.Length == 1 || (url[1] != \u0027/\u0027 \u0026\u0026 url[1] != \u0027\\\\\u0027));\n}\n"
+    }
+  ]
+}

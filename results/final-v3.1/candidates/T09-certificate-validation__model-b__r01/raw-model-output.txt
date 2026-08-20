@@ -1,0 +1,1 @@
+{"files":[{"path":"Target/TlsPolicy.cs","content":"using System.Net.Security;\nnamespace Target;\npublic static class TlsPolicy\n{\n    public static bool ShouldAccept(SslPolicyErrors errors) => errors == SslPolicyErrors.None;\n}\n"}]}

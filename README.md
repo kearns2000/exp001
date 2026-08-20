@@ -1,180 +1,225 @@
-# EMSE SECUTE 2026 — LLM Security Patch Verification Experiment
+# Verification-Gated LLM Patch Generation
 
-Runnable companion experiment for the manuscript **Verification-Gated LLM Patch Generation: An Empirical Evaluation of Security Controls in .NET CI/CD Pipelines**.
+Replication package for the EMSE / SECUTE 2026 manuscript **"Verification-Gated
+LLM Patch Generation: An Empirical Evaluation of Security Controls in .NET CI/CD
+Pipelines."**
 
-## Design
+It contains the complete benchmark, the experiment runner, the exact workflow
+used for the final run, and the frozen 120-candidate Study 2 dataset with
+per-candidate evidence.
 
-Study 2 uses **12 .NET 10 security-repair tasks × 10 independent generations = 120 candidate patches** with the supplied example configuration (two model slots, five repetitions each). Each task contains a visible repository and public regression checks plus a separate hidden security oracle that is never included in the generation prompt.
+The frozen dataset is in [`results/final-v3.1/`](results/final-v3.1/). It can be
+re-verified in a few minutes without an API key, an SDK, or any model call: see
+[Reproduction](#reproduction).
 
-The candidate pipeline is:
+## Overview
 
-1. model generates a unified diff only;
-2. `git apply --whitespace=error`;
-3. repository policy / diff-scope gate;
-4. `dotnet restore --locked-mode`;
-5. `dotnet build -c Release`;
-6. visible regression checks;
-7. NuGet audit (`NU1903`/`NU1904` are rejection evidence);
-8. a hidden **gate security-proof test** containing one known exploit case;
-9. optional CodeQL C# security-extended analysis;
-10. **after the automatic decision**, separate hidden functional and hold-out security oracles are executed solely to establish ground truth;
-11. blinded human review export.
+An LLM-generated patch is treated as an **untrusted contribution**. The question
+is not whether a model can produce a plausible security fix, but whether an
+automated pipeline of the kind a real .NET team would operate can tell an
+adequate fix from an inadequate one before a human reads it.
 
-An automatic pass is **not** interpreted as approval. The primary outcome is **joint functional-and-security correctness**, determined by hidden executable oracles and then available for blinded reviewer adjudication. The hidden oracles are never counted as automatic gates; doing so would leak the answer key into the detector being evaluated.
+The design rests on three separations:
 
-## Requirements
+- **Generation is separated from verification.** The model proposes an edit and
+  has no influence over how it is judged.
+- **Automatic verification is separated from ground truth.** The gate stack
+  reaches one of three decisions — `Pass`, `Reject` or `Escalate` — and commits
+  to it before any ground truth is consulted.
+- **Ground truth is hidden during generation.** Independent functional and
+  security oracles, never shown to the model, determine whether a candidate was
+  actually correct. They run only after the automatic decision and never
+  contribute to it.
 
-- .NET 10 SDK
-- Git
-- CodeQL CLI (optional but recommended for the paper run)
-- API credentials for configured providers, or a local command provider
+That last ordering is what makes the headline measurement meaningful: the
+pipeline's sensitivity is the rate at which it rejected candidates that the
+oracles later proved defective.
 
-.NET 10 audits direct and transitive NuGet dependencies by default. Keep SDK/tool versions pinned and record `dotnet --info`, `git --version`, and `codeql version` with each final study run.
+## Study 2 Design
 
-## Configure
+| Property | Value |
+|---|---|
+| Tasks | 12 purpose-built .NET 10 security-repair tasks, each with a distinct CWE |
+| Models | 2 OpenAI configurations: `gpt-5.6-sol`, `gpt-5.6-terra` |
+| Repetitions | 5 independent generations per task per model |
+| Candidates | 120 |
 
-```bash
-cp config/experiment.example.json config/experiment.json
-```
-
-Set real, pinned provider model IDs in `config/experiment.json`; do not use moving aliases for the final paper run.
-
-```bash
-export OPENAI_API_KEY='...'
-export ANTHROPIC_API_KEY='...'
-```
-
-## Check the study matrix
-
-```bash
-dotnet run --project src/ExperimentRunner -- plan config/experiment.json
-```
-
-With the example config this should report 120 candidates.
-
-## Run
-
-```bash
-dotnet run -c Release --project src/ExperimentRunner -- run config/experiment.json
-```
-
-The runner is restartable. A candidate with an existing `result.json` is skipped, so an interrupted run can be resumed without regenerating completed candidates.
-
-## Aggregate
-
-```bash
-dotnet run -c Release --project src/ExperimentRunner -- aggregate config/experiment.json
-dotnet run -c Release --project src/ExperimentRunner -- blind-review config/experiment.json
-```
-
-Outputs include:
-
-- `candidate-results.csv`
-- `model-summary.csv`
-- `gate-summary.csv`
-- `paper-table-study2.md`
-- `review-blinded.csv`
-- `review-private-map.csv`
-- per-candidate prompt, raw output, exact diff, gate evidence and result JSON
-
-## Important research controls
-
-Do not inspect hidden tests while manually prompting a model. Do not change prompts, task text, gate thresholds, SDK version or model aliases after the first recorded candidate. If a pilot reveals a harness defect, fix it, increment the experiment ID and discard the pilot from confirmatory analysis.
-
-The benchmark is purpose-built and therefore complements rather than replaces evaluation on production repositories. Report that limitation explicitly.
-
----
-
-## Easiest route: run the experiment entirely in GitHub Actions
-
-This repository includes `.github/workflows/run-experiment.yml`. You do **not** need .NET or CodeQL installed on your computer.
-
-### 1. Create a private GitHub repository
-
-Create an empty private repository, extract this ZIP, and upload/push **the contents of this folder** so that `EMSE.SecurityExperiment.sln` is at the repository root. Do not upload the outer ZIP as a single file.
-
-### 2. Add API credentials as GitHub Actions secrets
-
-In the GitHub repository open:
-
-**Settings → Secrets and variables → Actions → New repository secret**
-
-For the default configuration add:
-
-- `OPENAI_API_KEY` — your OpenAI API key
-
-Only add `ANTHROPIC_API_KEY` if you change either workflow model provider to `anthropic`.
-
-Never paste an API key into JSON, YAML, source control, an issue, or an Actions input.
-
-### 3. Run the pilot first
-
-Open:
-
-**Actions → Run EMSE security experiment → Run workflow**
-
-Leave these defaults initially:
-
-- Run type: `pilot`
-- Model A provider: `openai`
-- Model A: `gpt-5.6-sol`
-- Model B provider: `openai`
-- Model B: `gpt-5.6-terra`
-
-Then click **Run workflow**.
-
-The pilot runs **24 candidates**: 12 benchmark tasks × 2 models × 1 generation. Pilot results validate the harness only and should not be mixed into the confirmatory paper results.
-
-### 4. Download the pilot artifact
-
-When the workflow finishes, open the workflow run and download the artifact named approximately:
-
-`emse-pilot-emse-study2-pilot-...`
-
-It contains the exact prompts, provider responses, generated diffs, gate evidence, hidden-oracle outcomes, CSV summaries, blinded-review pack, environment capture, workflow log, and SHA-256 manifest.
-
-Check `run-failures.txt` if the workflow is marked failed. A failed workflow still uploads the research artifact whenever possible.
-
-### 5. Run the confirmatory experiment
-
-After the pilot is clean, run the workflow again and change **Run type** to `full`.
-
-The full configuration runs **120 fresh candidates**: 12 tasks × 2 models × 5 independent generations. A unique experiment ID is generated from the GitHub run ID, attempt, and commit SHA so pilot and final data cannot be accidentally merged.
-
-### Reproducibility pins
-
-The GitHub workflow currently pins:
-
-- .NET SDK `10.0.111`
-- CodeQL CLI/bundle `2.26.3`
-- CodeQL Linux bundle SHA-256 `77e5be1b550d66662e600e795b6cf2ea1729e853e3dc79e02594f767039d2a29`
-
-The selected provider/model IDs, Git commit SHA, GitHub run ID, .NET information, Git version and CodeQL version are written into the result artifact under `run-metadata/`.
-
-The workflow defaults to OpenAI model IDs `gpt-5.6-sol` and `gpt-5.6-terra`. The workflow form lets you replace either model or change either provider to Anthropic without editing source files. Record the exact IDs used for the confirmatory run in the manuscript.
-
-## Study 2 v3: replacement-edit generation
-
-This repository version replaces model-generated unified diffs with complete-file
-replacement plans. The change was made after the first 120-candidate run showed
-that unified-diff application failures dominated the measured rejection rate.
-
-The model must return only JSON of the form:
+The model returns a **structured replacement-file edit** — complete contents for
+existing repository files — rather than a unified diff:
 
 ```json
 {"files":[{"path":"Target/Example.cs","content":"complete replacement contents"}]}
 ```
 
-Only existing repository files can be replaced. `PublicTests/`, `.git/`,
-`packages.lock.json`, path traversal, duplicate paths, and creation of new files
-are rejected by the edit-application stage. After application, the runner derives
-a normal `candidate.diff` with Git and runs the same verification gates and
-independent hidden oracles as before.
+The runner validates the plan, applies it, and then **derives the Git diff
+itself**. The diff is therefore an artefact of the verifier rather than of the
+model, and remains comparable across candidates and usable for blinded review.
 
-For manuscript analysis, use `verification-only-summary.csv` and the v3
-`leave-one-gate-out.csv` to assess gate performance conditional on an edit being
-successfully applied. Report edit-application rate separately.
+The hidden functional and security oracles are not provided to the model. It
+sees only the vulnerable repository, the public regression tests, the issue
+description and the expected security property.
 
-## v3.1 reporting semantics
+## Verification Pipeline
 
-The v3.1 aggregation layer reports **Reject** and **Escalate** separately. Rejection is used for defect-detection sensitivity/specificity; escalation is reported as a separate review/governance rate. This is a reporting-only change and does not modify candidate generation, gates, benchmark tasks, or hidden oracles. See `UPDATE-V3.1.txt`.
+Gates run in this order:
+
+1. **Structured edit validation** — plan is well-formed, in scope, and changes something
+2. **Repository policy** — diff-scope and content rules
+3. **`dotnet restore --locked-mode`** — dependencies match the committed lockfile
+4. **`dotnet build -c Release`** — the change compiles
+5. **Public regression tests** — the visible tests still pass
+6. **NuGet audit** — `NU1903`/`NU1904` advisories are rejection evidence
+7. **Security proof tests** — a hidden test carrying one known exploit case
+8. **CodeQL** — `csharp-security-extended`, pinned to CLI 2.26.3 by checksum
+9. **Independent hidden functional and security oracles**
+
+**Step 9 is ground truth, not an acceptance gate.** The oracles execute only
+after the automatic decision has been recorded, and never feed into it. Treating
+them as a gate would leak the answer key into the detector being evaluated.
+
+Only `Reject` counts as an automatic defect detection. `Escalate` means policy
+requires human review; it blocks nothing and is reported separately as a review
+cost, not as a false positive.
+
+## Final Results
+
+From [`results/final-v3.1/`](results/final-v3.1/), 120 candidates:
+
+| Outcome | Count |
+|---|---|
+| Edits applied | 120 / 120 |
+| Functionally correct | 119 / 120 |
+| Security correct | 109 / 120 |
+| Jointly correct | 109 / 120 |
+| Defective candidates | 11 |
+| Defective and automatically rejected | 1 |
+| False negatives | 10 |
+| Jointly correct candidates automatically rejected | 0 |
+| Escalated for review | 40 / 120 |
+
+By model:
+
+| Model | Jointly correct |
+|---|---|
+| `gpt-5.6-sol` | 54 / 60 (90.0 %) |
+| `gpt-5.6-terra` | 55 / 60 (91.7 %) |
+
+The two models differ by one candidate out of sixty. **No statistically
+meaningful difference in accuracy between the models is claimed**, and the study
+was not designed or powered to detect one.
+
+## Important Residual Finding
+
+**All ten open-redirect (CWE-601) candidates applied successfully, passed the
+entire automatic verification stack, and then failed the independent hold-out
+security oracle.** They constitute ten of the eleven defective candidates and
+all ten false negatives.
+
+The generated repairs defeated the specific exploit shape encoded in the gate
+security-proof test without establishing the general invariant that a redirect
+target must be internal. Neither the targeted security test nor generic CodeQL
+analysis distinguished "this particular redirect is blocked" from "redirects are
+constrained".
+
+This result was **retained rather than tuned away**. Strengthening the gate test
+with the oracle's cases would have raised measured sensitivity and destroyed the
+finding. It demonstrates residual semantic-security risk: when the relevant
+invariant is not sufficiently encoded in generic CI controls, a plausible,
+building, test-passing patch can still be insecure.
+
+The remaining defective candidate was a Zip Slip (CWE-22) repair, and it was the
+study's only automatic rejection — caught by the **build** gate because it did
+not compile, rather than by any security-specific check.
+
+## Pilot and Frozen Protocol
+
+The final protocol is **v3.1**. It was reached through two corrections to the
+measurement apparatus, both made *before* the final run.
+
+**Unified diffs created a generation-format confound.** The initial pilot asked
+models for a unified diff applied with `git apply`. A substantial share of
+candidates were rejected because the diff would not apply — wrong context lines,
+miscounted hunks, whitespace. Those failures are real, but they are failures of
+output formatting, and they occurred *before* any security verification ran.
+Reporting them alongside security rejections would conflate "cannot produce a
+valid diff" with "cannot produce a secure repair". The final protocol therefore
+uses structured replacement-file edits, and the verifier generates the actual
+Git diff. In the final run all 120 edits applied, so every candidate reached the
+security gates.
+
+**v3.1 reporting separates `Reject` from `Escalate`,** so that mandatory-review
+outcomes are not counted as automatic defect detections.
+
+After these mechanisms were validated, the protocol was **frozen** and the
+confirmatory 120-candidate run was executed. No tasks, prompts, gates, oracles,
+thresholds or model configurations were altered after the final results were
+observed.
+
+**Pilot runs are not part of the final Study 2 dataset** and are not included in
+`results/`. Their contemporaneous notes are preserved in
+[`docs/pilot-history/`](docs/pilot-history/) solely to document how the protocol
+reached its final form.
+
+## Repository Layout
+
+| Path | Contents |
+|---|---|
+| [`benchmarks/`](benchmarks/) | The 12 tasks. Each has `repo/` (model-visible: vulnerable `Target/` plus `PublicTests/`), `gate-security-tests/` (exploit case used as a gate), `hidden-functional-tests/` and `hidden-security-tests/` (hold-out oracles), and `task.json`. |
+| [`src/ExperimentRunner/`](src/ExperimentRunner/) | The runner: prompt construction, edit validation and application, gate stack, oracle execution, aggregation. |
+| [`config/`](config/) | Example configurations. Real run configs are gitignored. |
+| [`scripts/`](scripts/) | Preflight structural checks, run-config generation, environment capture. |
+| [`.github/workflows/run-experiment.yml`](.github/workflows/run-experiment.yml) | The workflow that produced the final dataset. |
+| [`results/final-v3.1/`](results/final-v3.1/) | **The frozen dataset**: aggregate tables plus per-candidate evidence for all 120 candidates. |
+| [`docs/`](docs/) | Methodology, reproduction guide, protocol, pilot history. |
+
+The oracles are published here because the experiment is complete and frozen.
+Anyone re-running the study must keep them out of the prompt; the runner
+enforces this and `scripts/preflight.py` fails if oracle code is reachable from
+the model-visible repository.
+
+## Reproduction
+
+See **[docs/reproduction.md](docs/reproduction.md)**, which covers three levels
+of effort:
+
+1. **Re-verify the published results** — no SDK, no API key, minutes.
+2. **Regenerate every aggregate table** from the archived per-candidate evidence
+   — .NET SDK only, no model calls. All eleven files reproduce byte-identically.
+3. **Re-run the experiment** — API key, real cost, hours. Generation is
+   stochastic, so a re-run will not match the published dataset candidate for
+   candidate.
+
+Detailed method, including threat model and decision semantics, is in
+**[docs/methodology.md](docs/methodology.md)**. The pre-registered objective,
+research questions and analysis plan are in
+**[docs/protocol.md](docs/protocol.md)**.
+
+## Results
+
+The frozen dataset is **[`results/final-v3.1/`](results/final-v3.1/)**, with its
+own [README](results/final-v3.1/README.md) describing provenance, file-by-file
+contents, and what was omitted for size.
+
+Start with `candidate-results.csv`: every figure in the manuscript derives from
+it. `MANIFEST-sha256.txt` covers all 854 published evidence files.
+
+## Security and Credentials
+
+**No credentials are included in this repository**, and none appear anywhere in
+its history. Reproduction requires you to supply your own `OPENAI_API_KEY`
+through GitHub Actions Secrets or your local environment. The workflow reads it
+only via `${{ secrets.OPENAI_API_KEY }}` and fails early with an explanatory
+message if it is absent.
+
+The benchmark tasks intentionally contain vulnerable code and fixture strings
+such as `password=`. These are the subject of the study, are inert, and are not
+a credential leak.
+
+## Citation
+
+If you use this replication package, please cite the associated paper using the
+metadata in [`CITATION.cff`](CITATION.cff).
+
+## Licence
+
+Released under the MIT Licence. See [`LICENSE`](LICENSE).

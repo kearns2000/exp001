@@ -1,0 +1,101 @@
+{
+  "id": "resp_02d2d8d9d19365ab006a8620b19adc87d2a723518ea2297b48",
+  "object": "response",
+  "created_at": 1787175089,
+  "status": "completed",
+  "background": false,
+  "billing": {
+    "payer": "developer"
+  },
+  "completed_at": 1787175091,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": 8000,
+  "max_tool_calls": null,
+  "model": "gpt-5.6-terra",
+  "moderation": null,
+  "output": [
+    {
+      "id": "rs_02d2d8d9d19365ab006a8620b25eb887d297fd7108b782d63a",
+      "type": "reasoning",
+      "content": [],
+      "encrypted_content": "gAAAAABqhiCzLaHtTuHiVllTyZxbaqg47IURIrqKqAmole8ig5pzVShedXCo0y-ZYdOY75gCb_4pCdSCBLdkPRUk6-IUtHHYPFEpOkj2KUKRYzky0Y1K8IZXALviotHdMmSlaNMb70-URo2ZfkVcp8nrvGmXB4IIY7B1vDf2G7X1q-Hd6yqY19gYDS9A6W0-jOBvKH9z2EqeEcozb17817As1flUn9XC2yjiEKZ-nmGcrAfy52prIPb08neWqOUa8Dh7yww0DHr8-W9vRmoyOOrjdEonHgXzdAweqJcHDIBqjWBoD7-j8O8vgo5lQon4yLErn-vDZSQTbJCMplDy6eUcz7Ar30u7sub944OWrAO9_74x7dslA5qZNBfPUI3S88G2sWjpTbIVTv0n7mCQdAM4JybkaVsCBPScIkkRlu1MyWbTSV4LqF2_wInIRwPZc2TzqBlThfnTzt9Xf7fuPP5FaifB-RiJubc3LhCIYrV1An01RE5Z9no1RwYkGg_Wolyrrb8fjn7Q5HzMJFXaVkDp0bRr6AZeFhwW9b7CklUBF_e6uiwoh2cZipPSZbSpETM5F4zBtW9bAiJpZn8D0-HgT0K7vmaTANDNFn66e5YASQqppG6XcURI2cwDN65SENajM8db4m4A1AWi9M8JkJG_EuNCJ6CDYZEQkiXQUfm0gI0CLfKYqSdmcElYEbJEMRmPqocThuafOl26Gs_fv3Riy5IO6zo6P0qEH6eiGAvlPkIatv9mLticbldirnTiD7XexdotDT_B0artdwAqQxhpTctGYHMHogzegzcGKzxJD3yM78bcXWa_athbA_OeptE_lAqphnBPW_OBzl5k_t4WIlaYw-SsrkR-RVFTzAz_-njFyqNODbzRZjGv4kgD8fezAYevYUktdeoe0e3Mmg95DfjoZ_mJpM9M3J2skK3c7kNJnUMI7f2KhcFCRYQA7TwKrX1Uv0YnaJCLsjAISVoQ3EBgvWdZpZKP22cfxzRqgFVXKD_DHphdJ_7LEyJjDR-zcFcU_s8-dtJOMR9uRu2uWXN0iYYJhOBs7OJBZnOs52dwqP0avltpq7PtKmj4Vd1xy9Ulm2WC8XSc6GdiFIGegimlAD-3ECPKLkMiCVtBn1OpFu7OdoA1MntQZNNOIxe5wE2OJcGH99fm7AwROj3WWLMFFhEh3VefXDWB1-obSPfpgy7RgDghzwRLjkDqNc-Kih3JQWteHBqVwIO1PhkoAj-SqKEdVKa3wBm3x3kqedJdNkkClTzn5Lp4nXxLVa5xCVmiclr99nbEp5DazMT7al9ehl9KH8wsHRhZqRNuAd9Ag5jH8VRToQfqnP0jYnhJmQepsfKS_LKGRoDbKSlEQ36iBwHIhaANmHwletH2BWePeCPdo4zKZ54kD69MgbWGNQNK--jFXpbqvl0n9YxfVDh3rQlC7_kJ5F8X_OeKIKiRk3okICgp3yA2Vf3uTXMVk-IxdIXT7xQNLThlarsdWd6NJNSEfa6YJPOHI5LtuKbarBVzhWvcHAcXcSnwcCNIuN4yF-sDtwXBkMLw80yrV9OK8soGIo5oeKtHUTn-C0_9T76DYdM=",
+      "summary": []
+    },
+    {
+      "id": "msg_02d2d8d9d19365ab006a8620b318d887d29156483d8214007e",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"files\":[{\"path\":\"Target/RolePolicy.cs\",\"content\":\"namespace Target;\\npublic static class RolePolicy\\n{\\n    public static bool CanDelete(string role)\\n        => string.Equals(role, \\\"Admin\\\", StringComparison.Ordinal);\\n}\\n\"}]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "all_turns",
+    "effort": "medium",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": true,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "text"
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 961,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 117,
+    "output_tokens_details": {
+      "reasoning_tokens": 57
+    },
+    "total_tokens": 1078
+  },
+  "user": null,
+  "metadata": {}
+}

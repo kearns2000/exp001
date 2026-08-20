@@ -1,0 +1,28 @@
+{
+  "experimentId": "emse-study2-v3-replacements-full-gh32289459168-a1-f79cd61861eb",
+  "maxParallelism": 2,
+  "timeoutMinutes": 15,
+  "benchmarkRoot": "benchmarks",
+  "resultsRoot": "results",
+  "runCodeQl": true,
+  "codeQlExecutable": "/home/runner/.local/codeql-2.26.3/codeql",
+  "codeQlSuite": "codeql/csharp-queries:codeql-suites/csharp-security-extended.qls",
+  "models": [
+    {
+      "id": "model-a",
+      "provider": "openai",
+      "model": "gpt-5.6-sol",
+      "repetitions": 5,
+      "apiKeyEnvironmentVariable": "OPENAI_API_KEY",
+      "maxOutputTokens": 8000
+    },
+    {
+      "id": "model-b",
+      "provider": "openai",
+      "model": "gpt-5.6-terra",
+      "repetitions": 5,
+      "apiKeyEnvironmentVariable": "OPENAI_API_KEY",
+      "maxOutputTokens": 8000
+    }
+  ]
+}

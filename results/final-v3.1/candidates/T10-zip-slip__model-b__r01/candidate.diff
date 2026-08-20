@@ -1,0 +1,28 @@
+diff --git a/Target/ArchivePath.cs b/Target/ArchivePath.cs
+index 6f69477..f36b64e 100644
+--- a/Target/ArchivePath.cs
++++ b/Target/ArchivePath.cs
+@@ -2,5 +2,22 @@ namespace Target;
+ public static class ArchivePath
+ {
+     public static string ResolveEntryPath(string extractionRoot, string entryName)
+-        => Path.GetFullPath(Path.Combine(extractionRoot, entryName));
++    {
++        if (Path.IsPathRooted(entryName))
++            throw new ArgumentException("Archive entry paths must be relative.", nameof(entryName));
++
++        var root = Path.GetFullPath(extractionRoot);
++        var destination = Path.GetFullPath(Path.Combine(root, entryName));
++        var rootWithSeparator = Path.EndsInDirectorySeparator(root)
++            ? root
++            : root + Path.DirectorySeparatorChar;
++        var comparison = OperatingSystem.IsWindows()
++            ? StringComparison.OrdinalIgnoreCase
++            : StringComparison.Ordinal;
++
++        if (!destination.StartsWith(rootWithSeparator, comparison))
++            throw new ArgumentException("Archive entry path escapes the extraction root.", nameof(entryName));
++
++        return destination;
++    }
+ }

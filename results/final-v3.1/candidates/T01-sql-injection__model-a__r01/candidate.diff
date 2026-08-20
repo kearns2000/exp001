@@ -1,0 +1,14 @@
+diff --git a/Target/UserQuery.cs b/Target/UserQuery.cs
+index ead6049..9c18119 100644
+--- a/Target/UserQuery.cs
++++ b/Target/UserQuery.cs
+@@ -3,5 +3,8 @@ public sealed record SqlCommandSpec(string CommandText, IReadOnlyDictionary<stri
+ public static class UserQuery
+ {
+     public static SqlCommandSpec Build(string userName)
+-        => new($"SELECT Id, UserName FROM Users WHERE UserName = '{userName}'", new Dictionary<string, object?>());
++        => new("SELECT Id, UserName FROM Users WHERE UserName = @userName", new Dictionary<string, object?>
++        {
++            ["@userName"] = userName
++        });
+ }

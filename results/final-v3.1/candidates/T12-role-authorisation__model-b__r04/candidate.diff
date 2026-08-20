@@ -1,0 +1,11 @@
+diff --git a/Target/RolePolicy.cs b/Target/RolePolicy.cs
+index b845b9e..4e087d9 100644
+--- a/Target/RolePolicy.cs
++++ b/Target/RolePolicy.cs
+@@ -2,5 +2,5 @@ namespace Target;
+ public static class RolePolicy
+ {
+     public static bool CanDelete(string role)
+-        => !string.Equals(role, "Guest", StringComparison.OrdinalIgnoreCase);
++        => string.Equals(role, "Admin", StringComparison.Ordinal);
+ }

@@ -1,0 +1,1 @@
+{"files":[{"path":"Target/TokenHasher.cs","content":"using System.Security.Cryptography;\nusing System.Text;\nnamespace Target;\npublic static class TokenHasher\n{\n    public static string Hash(string token)\n        => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(token))).ToLowerInvariant();\n}\n"}]}

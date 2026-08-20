@@ -1,0 +1,101 @@
+{
+  "id": "resp_067e132f0dc506d5006a85fff9b28887d2ae67466984274f76",
+  "object": "response",
+  "created_at": 1787166713,
+  "status": "completed",
+  "background": false,
+  "billing": {
+    "payer": "developer"
+  },
+  "completed_at": 1787166723,
+  "error": null,
+  "frequency_penalty": 0.0,
+  "incomplete_details": null,
+  "instructions": null,
+  "max_output_tokens": 8000,
+  "max_tool_calls": null,
+  "model": "gpt-5.6-terra",
+  "moderation": null,
+  "output": [
+    {
+      "id": "rs_067e132f0dc506d5006a85fffa950487d29408005bc7750068",
+      "type": "reasoning",
+      "content": [],
+      "encrypted_content": "gAAAAABqhgAD58LAU6yhKYFbu0l1xeQMpLBlQAvfTlLZOZrCg7tPU7WXXMKvZJsUzvvAaVaAXcde_0APJQyqA0NYOMGcMFtKmR03bYjbWH_flGZRKydJs4jMpTJiygwwV0w8-vkUiorhvACH65TqdZCUFKSpjfZrwdHaXcywJktitkw-_ONPH7lENtIpeFSm_GdNwmLSwqydceFhN_DnA6dFnhTX9xMfRDkBM8oFkZeD-ZFNJ77BqCjVvovuHWv-cKUHYboKXn3z5T1mpzmptxXDgg92aaLiOiMXUygd5UOFbit-coZpRZAliW9tDCy9CoCI0mMR275zPz8w1CA_bAYDfjWNIhhw2Fza9xh_y6nPmKG2WD7BAdyAOOO5Pfb6LI4SqcFWk2Qw2RHQRzfDcobxPUHQkFEvF0sQUE0MKDgMDgKBCjgpp_ULd_-ORJx_hS3wrzQMuhhRjkpf4oCbVSW_Juo8SulvYIFUFd9s872Ap6OE6QxQDbIxUdtEHWkzZUf32eOPav7Rdh6oEh5ozYIQSqmZxns7OeOm1_FEnhzDyQZ-L0iP1nN5QUjJn_4OBiTFooa4QUH3X69k89HzS48bblBn0wtYXVyG0TKUcYePlLgXTw-Ki9eud1Fk_vAvE_gIcGsSz6lQL4zQ84jNrLAJPTtZe8hQd_yxRyOItf8ZJiN0eMreef3HFI35iQkzQZMFBwuik6v_D-gBEtJtqThZgFLf1e9GX6sPuAtK73s_Ib6Pz41rdJGpzkzwjzUm4je9zAuag7v3-Niv2PKtekOFfY08MPKLkXns_XB4rVJ7E5IMMHT38HTLxmlFybRltyOGBfqEuoHa1Wx6l6OAK1eXX0UySqyPVHBLo3iYgXB3nwCrYh3y-ZBmcGHS35UQCFerf9c6P8OCexe2wkgAhXHFgc36RX6QKYWrhHJH12uleM6A7djK18YhMcx-6Bbiphw98CN7q-Pu3VNG9fssq2Q7VTTU3PVaBNdnKO5QvLZpp9gO02zq9gvCtB_1FCh49reWBVts4NXdRcZFhj2juM-iIP8CPrhodMk977r2sUgujOYaKw0zno7jsHACAcIOCQJS18pqD2wydlg71g5WbtXzQMfUGkc5hcV7UqveG9b8jI8QeAE6GxLITzBYmM_xgjQhkMNmWl96DI7rGPf26nQJV8s-GPGlg_kLIxulyZhMWcOjxtGymUvM3byG-ySkyg7E-GbWUaY_Zitv_7rNwrIu9X8arAr3Uycmb8G-HdmXtG8iAbD6luP3KPA4xL_P_yo8QYweGO567kEkQ1N9wCPDSv-ELKRVodPHqWvZ3hDiMLhenaREIZo7Pny0PIu_dJ9fJaaoOb-EdLYW6CjuHWIuG4UU7iL8zCNP7crAf2McJJAQT0OP70oEQjCWyL_i4NVRjEBVfhHv9rBMbs7N8cMdFiC9cRQXXcoGxX2dsji-hFtYQ9PzXbzmanZ74RBnLO2baVpfY8ww26A2NaiuVWyzuD-2lCkMQOB1FmFbU3V3dbk9tnFQuxo8_PPQmzhK3HV-E1yBo5NGlqG5Qav6IX7BjdOyQTV8rTTYEdTRYsxeZs0p7KwZ06rHBANXLXFafJKOSI_6TY_Iv1rVnfiBBskNandaFwM-5QEAk3yXwt_30uQGZg-X36y-cc0gN4OSksBCt7fGFOUVBaFN0a55ep36eo7tbWU21zWNhZ-IXrVlQgz2o7Pj3w0f1RRz-2D1txkTVFM2RdZR_kmlQkbrOU-FmDZmBKWU5lAh4uUlGe5Z61WcVtErov2pb9LOp8lmHYInAG1zt1P2arIyYJKJCTIad2EdcdW7DbspGDkEWALbfQS9Y_FIEPNX28JqXlngaBrEOc94pDheMA7F855v90srHf5g-1MdalerTvatkoRCoh8owWnZeHBOT1DgH8t0tncZyqCUHXYFaG4Dl15WXcGB8lbrLhaVGnq1Inany4SBAnh_p0ciYizTqtiI-QreZFc4sFpur7wK7xa8crrO2usmnVTeyi_NbLo4zyH0g3fpi8qtKRtNSkF6-VMsoP_eKMxewfEoQomb2d8S6SSzd-8voU9lGtFKTABqPSqwK-YOj9zf6DUn1cnaVhq1M7hTz2p_vKw40RF184kV7omKjpM-Y-wQws5YfwGEmP9mR73kXC9gGzudBntpHuCH0-Sq3SWa8t5WUibV3RHlsPXb5sA9Vz0hDcwvm6EhsAbZT8DNFZrzzanj6dp3Hql9s24uc1mWqxQLbX9N4CbUTtyFz0olWeKqOItYCBrKhC-NOi2iaKlpUN-iCNUsy3JKZmb8AAzgrglI_anREa5ztT84wH7ZpV8RmXnHedGgtBIgrm8Ou4GM7wDY6MNiqBJwsmt4ehrcCueASVkZsz-DVgmzvMxQW1hG9P6zHxeQKvrH6yyOTj8kxR8SJihDxDQ5LNnfoQMW0ARWkt9Qz4wS1RIQ9nunqWdvmWAFi2oE21YacD9fJB_YdiASok4wg5zc-LIf85Jsy19lIyLyuoxO1CMNgvL28T2vn7CMO8iXdext4MvA_6_mAHiy8GhP0_kBvpW6Td602-buC9E2SEB1-lLDxso4UxACurS5D5T-wXVheVMjBwLmDpfwrBcjhBY5dQe75Gt-6UIb6Th8A3oiysqt_9wJVK_Vd3Wwo-KrWEC-rXVcmy00k9jtEJ6f6fkNcKWyvVyLoaEvaRRcz7136BCYCOVNHcn6ejCMXgjH_jAR21uea0azRTbF_lrrG4Thnf3bPJVUhRNglEV8-XhuojW4Oj9w8j9MD0VY9s6BxgCxXFhQDrXXjAxKGEYHBhVY-IRY2cuUD_qVXac3nY4pkpt--u9dj5mtIXwzYxEzYfoONN_H1YFEYbse3Y4LICF49pqS9k9YE3t2dQpsA6Cyf2SE58U6LKVyIBCYfXXSx-Ne9qoaiC-m4P5pwG3_w3Rto8B4OwCvarCdqgGj0rIt6bdBzr9OzBvKK8_LuRW-6dKdaFCB8RwTFNqi53R8JQXgEgBH1m99gy5H5r3v9eBhsYlcZmLEI0xSnS7IExR5244JM3C8njN6DtmpsGGwd5Ewz03mFuVodF9lMgH3hDK1G0lWNYRUIDLMgFvGoy-kmlQQlBUlq20Ac778fjNSV8pVZu005auarkb-fBMPRJvM-46KdLZ-z3n2F1QWnlSQLh-RQ8Mm5LAvhM2o3nPfTWuMztGNlFhnBNrrso_V27EoG2NKl7t34FXr3QRioVizQrodvXd5RxrItxzvy0YHp5gZBRwaolayq9jc03TBODohgUpK7ZlYVTQK59YCYxQAise5UAGO9Oj7iuq7cd1j_PZsjkx_JzXlxxu_WxXbled9DG5sdCFwbhFeIEbubqe3WEpMmrE1cG4PH5JE-BnZSfOWScTvORZkUGkhDWRzrEIkgETMIp5DAfCdcWUAjSAIuWTnpazrxFBEyHGFRzLaxTQ9SdSBDUoP3cMgsCP76X8BrTAe0wX9L3EJOG2nMDaVW_YoPOEE9ttuVfMKQFHd5urTWxGxkW1nEsEh0Ypim409YQlqIXuKTfMkd-y6Yf3600sFlkwqZCvwJBgdV1hcetfc00KzVv1jbDlbt_H2sDSoZM64cfAGL7Hudnb1mO9Xq6F-NBiQ-8cEzipWyPnnm1Cs1Pof19qbF93wsVBPaW3wtXaF_QMcVVCacJhqxI2Or1DutNj7qKbMfkLrpLLG58uOEPL6k7Ttzti1A1aAsn5AgSlgbWrH5gs2vU7MVf30g7ycfr59osDRX4Dnm7oDnmKKU_mLaFLk6-bK5h9qqfxvgrbjCPokTCyLdmSK6RVvToxFV9o2ScIcWYTCgFspB-PENRxLbTxIt5JfQE8N3PRAc1gAaz5G73EzHpaZG_Jd4MUafo12ga1xOTQR8iLV_eWWg_197rMzqnQcCA5YLtwQnhp5yV1_inT94khP_o1zrHkn_sfNxzGRkxBBFxP5RWa1v43YsrAdnFcgDqzYh1rD08nCkrCxnyGDAXtsPh9y9TPhHhQZtFic8Ic8Sec_7FhGNO2A6Hah_PN5pQVdhoYcXhv_3RC3YKJA70mz7fYVftWvZX3rRj-hEG9yx_9mntXY-s9iU4c4YxT4nAsoP1lLkBxqYF1laDKuzxO_y04z55X7AC-5q0_v0qOy1kn-kKIw0vZumF4nqu_t3xSAvxNq8xUgxDRBaXlAro-tC_CRUdWKXXTsFfGG0kxr2BLjHF8dET6wFHDTWwR7tPEhiRBOIKKNKrqouPqo5SI4NGX8zUjPwQTMi5DYWvSz2fDwou00fKRuS8mbDz_tulenr1IQwN-Vu01OXV3HDzOaUss7290Pi63O3iBd3jRQ7dmU6MiZ7SELWqNBBonvhYdPeCXpwxgA0tk1pj3IZghJKL65qso1rDuWC4U9Xlfyeemn9mEjbq_7jTyfpeiZeNeUOBvy5PoYEMjTyY5acptorNGdWKFz9Fuz3dKobRwIyWo_OKCaOj7ZTr_SZDYN8jUOLFknfzd7beQFFJp_kNmRrjvCBIJPTuoJQHEuohM9Py8kCVoguOa1m9mtG6bK5YYWYMECC8sexgR9wQQYmWA45M9OjcxagamB9MWUYwLbdPkN3iUEVZWDNThvpOIQEBmFPzcVgdz0n9HtKgpaKAC2kQq3S8rLrUrFuNzIkLY3XYhz88F4txYoxhsKLZ9--_5Q6HFOk_2jpGvo1CGH5LRZ7ZVMm1PigJyU1sfVzeye9KvDwVp_P4R8r077T3WOSVrdxGot-9ykFxKNrJSz9U6lV08rV7ZVlpz32Jf1Op3WrjZgyEHyrWMdJNxOe6oyEc0k",
+      "summary": []
+    },
+    {
+      "id": "msg_067e132f0dc506d5006a860002392887d2ba6614ad1942da0c",
+      "type": "message",
+      "status": "completed",
+      "content": [
+        {
+          "type": "output_text",
+          "annotations": [],
+          "logprobs": [],
+          "text": "{\"files\":[{\"path\":\"Target/FileStore.cs\",\"content\":\"namespace Target;\\npublic static class FileStore\\n{\\n    public static string Resolve(string root, string relativePath)\\n    {\\n        if (Path.IsPathRooted(relativePath))\\n        {\\n            throw new ArgumentException(\\\"The path must be relative to the storage root.\\\", nameof(relativePath));\\n        }\\n\\n        var fullRoot = Path.GetFullPath(root);\\n        var fullPath = Path.GetFullPath(Path.Combine(fullRoot, relativePath));\\n        var rootPrefix = Path.EndsInDirectorySeparator(fullRoot)\\n            ? fullRoot\\n            : fullRoot + Path.DirectorySeparatorChar;\\n        var comparison = OperatingSystem.IsWindows()\\n            ? StringComparison.OrdinalIgnoreCase\\n            : StringComparison.Ordinal;\\n\\n        if (!fullPath.Equals(fullRoot, comparison) && !fullPath.StartsWith(rootPrefix, comparison))\\n        {\\n            throw new ArgumentException(\\\"The path must remain within the storage root.\\\", nameof(relativePath));\\n        }\\n\\n        return fullPath;\\n    }\\n}\\n\"}]}"
+        }
+      ],
+      "phase": "final_answer",
+      "role": "assistant"
+    }
+  ],
+  "parallel_tool_calls": true,
+  "presence_penalty": 0.0,
+  "previous_response_id": null,
+  "prompt_cache_key": null,
+  "prompt_cache_retention": "24h",
+  "reasoning": {
+    "context": "all_turns",
+    "effort": "medium",
+    "mode": "standard",
+    "summary": null
+  },
+  "safety_identifier": null,
+  "service_tier": "default",
+  "store": true,
+  "temperature": 1.0,
+  "text": {
+    "format": {
+      "type": "text"
+    },
+    "verbosity": "medium"
+  },
+  "tool_choice": "auto",
+  "tool_usage": {
+    "image_gen": {
+      "input_tokens": 0,
+      "input_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "output_tokens": 0,
+      "output_tokens_details": {
+        "image_tokens": 0,
+        "text_tokens": 0
+      },
+      "total_tokens": 0
+    },
+    "web_search": {
+      "num_requests": 0
+    }
+  },
+  "tools": [],
+  "top_logprobs": 0,
+  "top_p": 0.98,
+  "truncation": "disabled",
+  "usage": {
+    "input_tokens": 990,
+    "input_tokens_details": {
+      "cache_write_tokens": 0,
+      "cached_tokens": 0
+    },
+    "output_tokens": 749,
+    "output_tokens_details": {
+      "reasoning_tokens": 505
+    },
+    "total_tokens": 1739
+  },
+  "user": null,
+  "metadata": {}
+}

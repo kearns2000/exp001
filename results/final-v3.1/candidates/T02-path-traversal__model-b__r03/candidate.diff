@@ -1,0 +1,27 @@
+diff --git a/Target/FileStore.cs b/Target/FileStore.cs
+index 74d3985..7f9c613 100644
+--- a/Target/FileStore.cs
++++ b/Target/FileStore.cs
+@@ -2,5 +2,21 @@ namespace Target;
+ public static class FileStore
+ {
+     public static string Resolve(string root, string relativePath)
+-        => Path.GetFullPath(Path.Combine(root, relativePath));
++    {
++        if (Path.IsPathRooted(relativePath))
++            throw new ArgumentException("The path must be relative.", nameof(relativePath));
++
++        var fullRoot = Path.GetFullPath(root);
++        var fullPath = Path.GetFullPath(relativePath, fullRoot);
++        var pathFromRoot = Path.GetRelativePath(fullRoot, fullPath);
++
++        if (pathFromRoot == ".." ||
++            pathFromRoot.StartsWith($"..{Path.DirectorySeparatorChar}", StringComparison.Ordinal) ||
++            Path.IsPathRooted(pathFromRoot))
++        {
++            throw new ArgumentException("The path resolves outside the storage root.", nameof(relativePath));
++        }
++
++        return fullPath;
++    }
+ }

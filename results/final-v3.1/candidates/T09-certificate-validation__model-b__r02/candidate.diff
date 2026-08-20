@@ -1,0 +1,11 @@
+diff --git a/Target/TlsPolicy.cs b/Target/TlsPolicy.cs
+index 83e3e3d..c8b0dc6 100644
+--- a/Target/TlsPolicy.cs
++++ b/Target/TlsPolicy.cs
+@@ -2,5 +2,5 @@ using System.Net.Security;
+ namespace Target;
+ public static class TlsPolicy
+ {
+-    public static bool ShouldAccept(SslPolicyErrors errors) => true;
++    public static bool ShouldAccept(SslPolicyErrors errors) => errors == SslPolicyErrors.None;
+ }

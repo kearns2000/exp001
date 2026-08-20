@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/RolePolicy.cs",
+      "content": "namespace Target;\npublic static class RolePolicy\n{\n    public static bool CanDelete(string role)\n        =\u003E string.Equals(role, \u0022Admin\u0022, StringComparison.Ordinal);\n}\n"
+    }
+  ]
+}

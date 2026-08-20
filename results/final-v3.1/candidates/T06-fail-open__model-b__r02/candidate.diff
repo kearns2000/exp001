@@ -1,0 +1,12 @@
+diff --git a/Target/Authorisation.cs b/Target/Authorisation.cs
+index 21c7b9d..cdfac3f 100644
+--- a/Target/Authorisation.cs
++++ b/Target/Authorisation.cs
+@@ -4,6 +4,6 @@ public static class Authorisation
+     public static bool Check(Func<bool> evaluator)
+     {
+         try { return evaluator(); }
+-        catch { return true; }
++        catch { return false; }
+     }
+ }

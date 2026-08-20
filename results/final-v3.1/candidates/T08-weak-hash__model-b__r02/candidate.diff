@@ -1,0 +1,11 @@
+diff --git a/Target/TokenHasher.cs b/Target/TokenHasher.cs
+index e599877..c39f4af 100644
+--- a/Target/TokenHasher.cs
++++ b/Target/TokenHasher.cs
+@@ -4,5 +4,5 @@ namespace Target;
+ public static class TokenHasher
+ {
+     public static string Hash(string token)
+-        => Convert.ToHexString(MD5.HashData(Encoding.UTF8.GetBytes(token))).ToLowerInvariant();
++        => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(token))).ToLowerInvariant();
+ }

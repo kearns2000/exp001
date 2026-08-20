@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/AuditFormatter.cs",
+      "content": "namespace Target;\npublic static class AuditFormatter\n{\n    public static string FormatLoginAudit(string email, string password)\n        =\u003E $\u0022Login attempt email={email}\u0022;\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "files": [
+    {
+      "path": "Target/ArchivePath.cs",
+      "content": "namespace Target;\n\npublic static class ArchivePath\n{\n    public static string ResolveEntryPath(string extractionRoot, string entryName)\n    {\n        ArgumentNullException.ThrowIfNull(extractionRoot);\n        ArgumentNullException.ThrowIfNull(entryName);\n\n        if (Path.IsPathRooted(entryName) || entryName.Split(\u0027/\u0027, \u0027\\\\\u0027).Contains(\u0022..\u0022, StringComparer.Ordinal))\n        {\n            throw new ArgumentException(\u0022Archive entry path must be relative and cannot contain traversal segments.\u0022, nameof(entryName));\n        }\n\n        var canonicalRoot = Path.GetFullPath(extractionRoot);\n        var destination = Path.GetFullPath(Path.Combine(canonicalRoot, entryName));\n        var rootPrefix = Path.EndsInDirectorySeparator(canonicalRoot)\n            ? canonicalRoot\n            : canonicalRoot \u002B Path.DirectorySeparatorChar;\n        var comparison = OperatingSystem.IsWindows()\n            ? StringComparison.OrdinalIgnoreCase\n            : StringComparison.Ordinal;\n\n        if (!destination.StartsWith(rootPrefix, comparison))\n        {\n            throw new ArgumentException(\u0022Archive entry path resolves outside the extraction root.\u0022, nameof(entryName));\n        }\n\n        return destination;\n    }\n}\n"
+    }
+  ]
+}

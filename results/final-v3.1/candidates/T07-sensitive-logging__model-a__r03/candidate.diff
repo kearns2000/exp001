@@ -1,0 +1,11 @@
+diff --git a/Target/AuditFormatter.cs b/Target/AuditFormatter.cs
+index 8402fdf..538f928 100644
+--- a/Target/AuditFormatter.cs
++++ b/Target/AuditFormatter.cs
+@@ -2,5 +2,5 @@ namespace Target;
+ public static class AuditFormatter
+ {
+     public static string FormatLoginAudit(string email, string password)
+-        => $"Login attempt email={email} password={password}";
++        => $"Login attempt email={email}";
+ }
