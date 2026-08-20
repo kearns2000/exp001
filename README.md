@@ -1,5 +1,7 @@
 # Verification-Gated LLM Patch Generation
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22033750.svg)](https://doi.org/10.5281/zenodo.22033750)
+
 Replication package for the EMSE / SECUTE 2026 manuscript **"Verification-Gated
 LLM Patch Generation: An Empirical Evaluation of Security Controls in .NET CI/CD
 Pipelines."**
@@ -219,6 +221,12 @@ a credential leak.
 
 If you use this replication package, please cite the associated paper using the
 metadata in [`CITATION.cff`](CITATION.cff).
+
+This package is archived on Zenodo. Cite the **concept DOI**, which always
+resolves to the most recent version:
+
+- Concept DOI (all versions): [10.5281/zenodo.22033750](https://doi.org/10.5281/zenodo.22033750)
+- Version DOI (v1.0.0, the release accompanying the manuscript): [10.5281/zenodo.22033751](https://doi.org/10.5281/zenodo.22033751)
 
 ## Licence
 

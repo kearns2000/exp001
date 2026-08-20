@@ -9,3 +9,11 @@ repository-code: "https://github.com/kearns2000/exp001"
 license: MIT
 version: "1.0.0"
 date-released: 2026-08-20
+doi: 10.5281/zenodo.22033750
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.22033750
+    description: "Concept DOI resolving to the latest version of the replication package"
+  - type: doi
+    value: 10.5281/zenodo.22033751
+    description: "Version DOI for release v1.0.0"
