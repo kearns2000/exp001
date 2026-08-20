@@ -225,8 +225,15 @@ metadata in [`CITATION.cff`](CITATION.cff).
 This package is archived on Zenodo. Cite the **concept DOI**, which always
 resolves to the most recent version:
 
-- Concept DOI (all versions): [10.5281/zenodo.22033750](https://doi.org/10.5281/zenodo.22033750)
-- Version DOI (v1.0.0, the release accompanying the manuscript): [10.5281/zenodo.22033751](https://doi.org/10.5281/zenodo.22033751)
+**Concept DOI:** [10.5281/zenodo.22033750](https://doi.org/10.5281/zenodo.22033750)
+
+That DOI is what the manuscript cites. It always resolves to the newest archived
+version, and its Zenodo page lists every version with its own version DOI if you
+need to cite an exact snapshot.
+
+Releases after v1.0.0 correct documentation only. The dataset in
+`results/final-v3.1/` is byte-identical across all versions, so every figure
+reported in the manuscript holds for any of them.
 
 ## Licence
 
