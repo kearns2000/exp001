@@ -255,11 +255,19 @@ gate test would have raised measured sensitivity and destroyed the finding, whic
 is precisely the methodological trap the generator/verifier/oracle separation
 exists to avoid.
 
-The single remaining defective candidate was a Zip Slip (CWE-22) repair, and it
-was the only automatic rejection in the study. It was caught by the **build**
-gate — it did not compile — rather than by any security-specific check. The
-honest reading is that the automatic stack rejected one defective candidate out
-of eleven, and did so for a reason unrelated to security.
+The single remaining defective candidate was a Zip Slip (CWE-22) repair
+(`T10-zip-slip__model-a__r01`), and it was the only automatic rejection in the
+study. The first rejecting gate was **build**: the edit did not compile. Its
+`result.json` also records rejections from the public tests and the
+security-proof test, and an `Indeterminate` CodeQL result, but none of these are
+independent detections — a candidate that does not compile cannot have its tests
+run or its code extracted, so every downstream gate inherits the build failure.
+The honest reading is that the automatic stack rejected one defective candidate
+out of eleven, and did so for a reason unrelated to security.
+
+This candidate is also why the leave-one-gate-out table shows unchanged
+sensitivity when the build gate is removed: the rejection survives through the
+inherited test failures, so no single gate removal changes the 1/11 result.
 
 ## Evidence retention
 

@@ -273,7 +273,8 @@ against `benchmarks/T11-open-redirect/hidden-security-tests/Program.cs`. The
 gate encodes one exploit case; the oracle encodes the general invariant.
 
 For the contrasting case — the only automatic rejection in the study — see
-`T10-zip-slip__model-a__r02`, where the build gate rejects.
+`T10-zip-slip__model-a__r01`, where the build gate rejects first and the
+downstream test gates inherit that failure.
 
 ## Security note
 
